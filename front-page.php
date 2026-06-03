@@ -24,16 +24,16 @@ get_header();
         
     endwhile;
     ?>
-    <a class="cta-btn hero" href="https://bdwmassage.bcitwebdeveloper.ca/service/">
+    <a class="cta-btn hero" href="/service/">
         Book Now
     </a>
 
     <div class="company-info">
-        <h2>Beloved Duck Wellness</h2>
-        <p>At Beloved Duck Wellness, we are dedicated to revitalizing your body, renewing your spirit, and helping you rediscover inner harmony—one massage at a time. Our clinic specializes in massage therapy, providing a serene and rejuvenating space where you can experience the healing power of touch.</p>
+        <h2>Shar Hair Salon</h2>
+        <p>At Shar Hair Salon, we are dedicated to revitalizing your body, renewing your spirit, and helping you rediscover inner harmony—one massage at a time. Our clinic specializes in massage therapy, providing a serene and rejuvenating space where you can experience the healing power of touch.</p>
         
         <h2>Brief Company Information</h2>
-        <p>Beloved Duck Wellness is a premier massage therapy clinic committed to promoting wellness and enhancing our clients' overall well-being. Our mission is to provide a sanctuary where individuals can escape the stresses of everyday life and focus on restoring balance to their mind, body, and spirit.</p>
+        <p>Shar Hair Salon is a premier massage therapy clinic committed to promoting wellness and enhancing our clients' overall well-being. Our mission is to provide a sanctuary where individuals can escape the stresses of everyday life and focus on restoring balance to their mind, body, and spirit.</p>
     </div>
 
     <!-- Our Services -->
@@ -42,7 +42,7 @@ get_header();
     <h2>Our Services</h2>
     <?php
     $args = array(
-        'post_type' => 'bdw-service',
+        'post_type' => 'shar-service',
         'posts_per_page' => -1
     );
 
@@ -94,7 +94,7 @@ get_header();
         <div class="therapist-grid">
             <?php
             $therapists_args = array(
-                'post_type' => 'bdw-staff', 
+                'post_type' => 'shar-staff', 
                 'posts_per_page' => -1
             );
 
@@ -132,7 +132,7 @@ get_header();
     <!-- Client Testimonials -->
     <?php
         $testimonial_args = array(
-            'post_type' => 'bdw-testimonial',
+            'post_type' => 'shar-testimonial',
             'posts_per_page' => 2,
             'orderby' => 'rand', // Order randomly
         );

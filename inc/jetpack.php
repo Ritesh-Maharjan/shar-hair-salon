@@ -14,13 +14,13 @@
  * See: https://jetpack.com/support/responsive-videos/
  * See: https://jetpack.com/support/content-options/
  */
-function bdwmassage_theme_jetpack_setup() {
+function shar_salon_jetpack_setup() {
 	// Add theme support for Infinite Scroll.
 	add_theme_support(
 		'infinite-scroll',
 		array(
 			'container' => 'main',
-			'render'    => 'bdwmassage_theme_infinite_scroll_render',
+			'render'    => 'shar_salon_infinite_scroll_render',
 			'footer'    => 'page',
 		)
 	);
@@ -33,7 +33,7 @@ function bdwmassage_theme_jetpack_setup() {
 		'jetpack-content-options',
 		array(
 			'post-details' => array(
-				'stylesheet' => 'bdwmassage-theme-style',
+				'stylesheet' => 'shar-hair-salon-style',
 				'date'       => '.posted-on',
 				'categories' => '.cat-links',
 				'tags'       => '.tags-links',
@@ -48,13 +48,13 @@ function bdwmassage_theme_jetpack_setup() {
 		)
 	);
 }
-add_action( 'after_setup_theme', 'bdwmassage_theme_jetpack_setup' );
+add_action( 'after_setup_theme', 'shar_salon_jetpack_setup' );
 
-if ( ! function_exists( 'bdwmassage_theme_infinite_scroll_render' ) ) :
+if ( ! function_exists( 'shar_salon_infinite_scroll_render' ) ) :
 	/**
 	 * Custom render function for Infinite Scroll.
 	 */
-	function bdwmassage_theme_infinite_scroll_render() {
+	function shar_salon_infinite_scroll_render() {
 		while ( have_posts() ) {
 			the_post();
 			if ( is_search() ) :

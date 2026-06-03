@@ -20,8 +20,8 @@ get_header();
 
 			the_post_navigation(
 				array(
-					'prev_text' => '<span class="nav-subtitle cta-btn">' . esc_html__( 'Prev', 'bdwmassage-theme' ) . '</span>',
-					'next_text' => '<span class="nav-subtitle cta-btn">' . esc_html__( 'Next', 'bdwmassage-theme' ) . '</span>',
+					'prev_text' => '<span class="nav-subtitle cta-btn">' . esc_html__( 'Prev', 'shar-hair-salon' ) . '</span>',
+					'next_text' => '<span class="nav-subtitle cta-btn">' . esc_html__( 'Next', 'shar-hair-salon' ) . '</span>',
 				)
 			);
 

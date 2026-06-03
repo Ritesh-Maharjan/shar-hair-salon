@@ -40,13 +40,13 @@
  
          // Grabbing all the services that match the staff
          $args = array(
-             'post_type' => 'bdw-service',
+             'post_type' => 'shar-service',
              'posts_per_page' => 3,
              'orderby' => 'title',
              'order' => 'ASC',
              'tax_query' => array(
                  array(
-                     'taxonomy' => 'bdw-staff-taxonomy',
+                     'taxonomy' => 'shar-staff-taxonomy',
                      'field' => 'slug',
                      'terms' => $slug
                  ),
@@ -88,7 +88,7 @@
          $slug = $post->post_name;
          // Grabbing all the testimonials that match the staff
          $testimonial_args = array(
-            'post_type' => 'bdw-testimonial',
+            'post_type' => 'shar-testimonial',
             'posts_per_page' => 2,
             'orderby' => 'rand', // Order randomly
         );

@@ -38,7 +38,7 @@ function create_service_post_type()
         ),
     );
 
-    register_post_type('bdw-service', $args);
+    register_post_type('shar-service', $args);
 
     //CPT for Staff 
     $labels = array(
@@ -78,7 +78,7 @@ function create_service_post_type()
         'template_lock' => 'all',
     );
 
-    register_post_type('bdw-staff', $args);
+    register_post_type('shar-staff', $args);
 
 
     //CPT for Testimonials 
@@ -118,7 +118,7 @@ function create_service_post_type()
         'template_lock' => 'all'
     );
 
-    register_post_type('bdw-testimonial', $args);
+    register_post_type('shar-testimonial', $args);
 
 }
 add_action('init', 'create_service_post_type');
@@ -152,7 +152,7 @@ function register_taxonomies()
         'rewrite' => array('slug' => 'staff'),
     );
 
-    register_taxonomy('bdw-testimonial-taxonomy', array('bdw-testimonial'), $args);
+    register_taxonomy('shar-testimonial-taxonomy', array('shar-testimonial'), $args);
 
     // Taxonomies for the service page
     $labels = array(
@@ -179,24 +179,24 @@ function register_taxonomies()
         'rewrite' => array('slug' => 'staff'),
     );
 
-    register_taxonomy('bdw-staff-taxonomy', array('bdw-service'), $args);
+    register_taxonomy('shar-staff-taxonomy', array('shar-service'), $args);
 
 }
 add_action('init', 'register_taxonomies');
 
 function create_service_taxonomy_from_staff($post_id) {
     // Check if the saved post is of the staf' post type
-    if (get_post_type($post_id) === 'bdw-staff') {
+    if (get_post_type($post_id) === 'shar-staff') {
         // Get the staff name from the post title
         $staff_name = get_the_title($post_id);
 
         // Check if a term with the staff name already exists in the service taxonomy
-        $term_exists = term_exists($staff_name, 'bdw-staff-taxonomy');
+        $term_exists = term_exists($staff_name, 'shar-staff-taxonomy');
 
         // If the term doesn't exist, create it
         if (!$term_exists) {
             // Insert the term into the your taxonomy
-            wp_insert_term($staff_name, 'bdw-staff-taxonomy');
+            wp_insert_term($staff_name, 'shar-staff-taxonomy');
         }
     }
 }
@@ -206,7 +206,7 @@ function edit_service_taxonomy_from_staff($post_id, $post_after, $post_before)
 {
 
     // Check if the saved post is of the staf' post type
-    if (get_post_type($post_id) === 'bdw-staff') {
+    if (get_post_type($post_id) === 'shar-staff') {
         // gettig the old title to search for the taxonomies
         $old_title = $post_before->post_title;
         // getting new title to update the taxonmoies
@@ -216,13 +216,13 @@ function edit_service_taxonomy_from_staff($post_id, $post_after, $post_before)
         $new_slug = get_post_field('post_name', $post_after);
 
         // getting the taxonomy id to update it
-        $term = get_term_by('name', $old_title, 'bdw-staff-taxonomy');
+        $term = get_term_by('name', $old_title, 'shar-staff-taxonomy');
 
         // Check if the post is being deleted
         if ($post_after->post_status === 'trash') {
             // delete taxonomies 
             $term_id = $term->term_id;
-            wp_delete_term($term_id, 'bdw-staff-taxonomy');
+            wp_delete_term($term_id, 'shar-staff-taxonomy');
 
         } else {
             // Perform actions specific to post update
@@ -232,7 +232,7 @@ function edit_service_taxonomy_from_staff($post_id, $post_after, $post_before)
 
                 wp_update_term(
                     $term_id,
-                    'bdw-staff-taxonomy',
+                    'shar-staff-taxonomy',
                     array(
                         'name' => $new_title,
                         'slug' => $new_slug,

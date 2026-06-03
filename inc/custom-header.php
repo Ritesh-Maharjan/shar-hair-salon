@@ -14,33 +14,33 @@
 /**
  * Set up the WordPress core custom header feature.
  *
- * @uses bdwmassage_theme_header_style()
+ * @uses shar_salon_header_style()
  */
-function bdwmassage_theme_custom_header_setup() {
+function shar_salon_custom_header_setup() {
 	add_theme_support(
 		'custom-header',
 		apply_filters(
-			'bdwmassage_theme_custom_header_args',
+			'shar_salon_custom_header_args',
 			array(
 				'default-image'      => '',
 				'default-text-color' => '000000',
 				'width'              => 1000,
 				'height'             => 250,
 				'flex-height'        => true,
-				'wp-head-callback'   => 'bdwmassage_theme_header_style',
+				'wp-head-callback'   => 'shar_salon_header_style',
 			)
 		)
 	);
 }
-add_action( 'after_setup_theme', 'bdwmassage_theme_custom_header_setup' );
+add_action( 'after_setup_theme', 'shar_salon_custom_header_setup' );
 
-if ( ! function_exists( 'bdwmassage_theme_header_style' ) ) :
+if ( ! function_exists( 'shar_salon_header_style' ) ) :
 	/**
 	 * Styles the header image and text displayed on the blog.
 	 *
-	 * @see bdwmassage_theme_custom_header_setup().
+	 * @see shar_salon_custom_header_setup().
 	 */
-	function bdwmassage_theme_header_style() {
+	function shar_salon_header_style() {
 		$header_text_color = get_header_textcolor();
 
 		/*

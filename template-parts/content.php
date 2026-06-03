@@ -40,7 +40,7 @@
 
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . esc_html__('Pages:', 'bdwmassage-theme'),
+				'before' => '<div class="page-links">' . esc_html__('Pages:', 'shar-hair-salon'),
 				'after' => '</div>',
 			)
 		);

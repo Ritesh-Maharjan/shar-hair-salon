@@ -1,6 +1,6 @@
 <?php
 /**
- * BDW Massage Theme Customizer
+ * Shar Hair Salon Theme Customizer
  *
  * @package BDW_Massage
  */
@@ -10,7 +10,7 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
-function bdwmassage_theme_customize_register( $wp_customize ) {
+function shar_salon_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
@@ -20,26 +20,26 @@ function bdwmassage_theme_customize_register( $wp_customize ) {
 			'blogname',
 			array(
 				'selector'        => '.site-title a',
-				'render_callback' => 'bdwmassage_theme_customize_partial_blogname',
+				'render_callback' => 'shar_salon_customize_partial_blogname',
 			)
 		);
 		$wp_customize->selective_refresh->add_partial(
 			'blogdescription',
 			array(
 				'selector'        => '.site-description',
-				'render_callback' => 'bdwmassage_theme_customize_partial_blogdescription',
+				'render_callback' => 'shar_salon_customize_partial_blogdescription',
 			)
 		);
 	}
 }
-add_action( 'customize_register', 'bdwmassage_theme_customize_register' );
+add_action( 'customize_register', 'shar_salon_customize_register' );
 
 /**
  * Render the site title for the selective refresh partial.
  *
  * @return void
  */
-function bdwmassage_theme_customize_partial_blogname() {
+function shar_salon_customize_partial_blogname() {
 	bloginfo( 'name' );
 }
 
@@ -48,14 +48,14 @@ function bdwmassage_theme_customize_partial_blogname() {
  *
  * @return void
  */
-function bdwmassage_theme_customize_partial_blogdescription() {
+function shar_salon_customize_partial_blogdescription() {
 	bloginfo( 'description' );
 }
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
-function bdwmassage_theme_customize_preview_js() {
-	wp_enqueue_script( 'bdwmassage-theme-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), _S_VERSION, true );
+function shar_salon_customize_preview_js() {
+	wp_enqueue_script( 'shar-hair-salon-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), _S_VERSION, true );
 }
-add_action( 'customize_preview_init', 'bdwmassage_theme_customize_preview_js' );
+add_action( 'customize_preview_init', 'shar_salon_customize_preview_js' );

@@ -17,7 +17,7 @@ get_header();
     <?php
 
     $args = array(
-        'post_type' => 'bdw-staff',
+        'post_type' => 'shar-staff',
         'posts_per_page' => -1, // To display all staff members
         'orderby' => 'title',
         'order' => 'ASC',
@@ -50,7 +50,7 @@ get_header();
     <?php
 
 
-            $terms = get_the_term_list($post->ID, 'bdw-staff-type', '', ', ');
+            $terms = get_the_term_list($post->ID, 'shar-staff-type', '', ', ');
             if (!is_wp_error($terms) && !empty($terms)) {
                 echo '<p>Categories: ' . $terms . '</p>';
             }
@@ -66,7 +66,7 @@ get_header();
 
     // Testimonials Section
     $testimonial_args = array(
-        'post_type' => 'bdw-testimonial',
+        'post_type' => 'shar-testimonial',
         'posts_per_page' => 2,
         'orderby' => 'rand', // Order randomly
     );

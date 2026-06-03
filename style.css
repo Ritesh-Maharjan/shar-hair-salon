@@ -1,5 +1,5 @@
 /*!
-Theme Name: BDW Massage
+Theme Name: Shar Hair Salon
 Theme URI: http://underscores.me/
 Author: FWD 36
 Author URI: https://bcitwebdeveloper.ca/
@@ -9,7 +9,7 @@ Tested up to: 5.4
 Requires PHP: 5.6
 License: GNU General Public License v2 or later
 License URI: LICENSE
-Text Domain: bdwmassage-theme
+Text Domain: shar-hair-salon
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Update URI: false
 
@@ -831,18 +831,18 @@ div.therapist > img {
 	border-radius: 50%;
 }
 
-div.massage-container {
+div.service-container {
 	display: flex;
 	flex-direction: column;
 }
 @media (min-width: 400px) {
-	div.massage-container {
+	div.service-container {
 		flex-direction: row;
 		justify-content: space-evenly;
 	}
 }
 
-div.massage-container > img {
+div.service-container > img {
 	width: 300px;
 	height: 300px;
 }
@@ -851,15 +851,15 @@ div.massage-container > img {
 	text-align: center;
 }
 
-.single-bdw-service .price-list {
+.single-shar-service .price-list {
 	flex-direction: column;
 	justify-content: center;
 }
-.single-bdw-service .price-list a {
+.single-shar-service .price-list a {
 	margin: 5px;
 }
 @media (min-width: 400px) {
-	.single-bdw-service .price-list {
+	.single-shar-service .price-list {
 		flex-direction: row;
 		justify-content: center;
 	}

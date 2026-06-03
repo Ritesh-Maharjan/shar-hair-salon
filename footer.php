@@ -44,7 +44,7 @@
 				); ?>
 
 			</nav>
-			<a class="cta-btn" href="https://bdwmassage.bcitwebdeveloper.ca/service/">
+			<a class="cta-btn" href="/service/">
 				Book Now
 			</a>
 			<p class="made-with-love">

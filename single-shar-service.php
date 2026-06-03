@@ -52,7 +52,7 @@ get_header();
         // Start of therapist
 
         // Grab the current post id, then grab the taxonomies of that id
-        $therapists = get_the_terms(get_the_ID(), 'bdw-staff-taxonomy');
+        $therapists = get_the_terms(get_the_ID(), 'shar-staff-taxonomy');
         if ($therapists && !is_wp_error($therapists)) {
             echo '<div class="therapists">';
             echo '<h3>Therapists:</h3>';
@@ -63,7 +63,7 @@ get_header();
                 <div class='therapist'>
                     <?php
                     $args = array(
-                        'post_type' => 'bdw-staff',
+                        'post_type' => 'shar-staff',
                         'name' => $therapist->slug,
                         'posts_per_page' => 1
                     );
@@ -94,13 +94,13 @@ get_header();
         // Testimonials Section
         $slug = $post->post_name;
         $testimonial_args = array(
-            'post_type' => 'bdw-testimonial',
+            'post_type' => 'shar-testimonial',
             'posts_per_page' => -1,
             'orderby' => 'title',
             'order' => 'ASC',
             'tax_query' => array(
                 array(
-                    'taxonomy' => 'bdw-testimonial-taxonomy',
+                    'taxonomy' => 'shar-testimonial-taxonomy',
                     'field' => 'slug',
                     'terms' => $slug
                 ),
@@ -140,7 +140,7 @@ get_header();
             if ($related_massages) {
                 echo '<div class="similar-massage">';
 								echo '<h3 class="similar-masssage-title">Similar Massage</h3>';
-                echo '<div class="massage-container">'; // Start the container for flex styling
+                echo '<div class="service-container">'; // Start the container for flex styling
                 foreach ($related_massages as $post):
                     setup_postdata($post);
                     ?>
@@ -150,7 +150,7 @@ get_header();
                     </div>
                     <?php
                 endforeach;
-                echo '</div>'; // Close the massage-container
+                echo '</div>'; // Close the service-container
                 echo '</div>'; // Close the similar-massage div
                 wp_reset_postdata();
             }

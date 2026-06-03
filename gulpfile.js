@@ -29,7 +29,7 @@ gulp.task('watch', function () {
 	// BrowserSync ***UPDATE PROXY & PORT***
 	browserSync.init({
 		open: 'external',
-		proxy: 'http://localhost:8888/bdw-massage',
+		proxy: 'http://localhost:8888/shar-hair-salon',
 		port: 8888
 	});
 	gulp.watch('./**/*').on('change', browserSync.reload);

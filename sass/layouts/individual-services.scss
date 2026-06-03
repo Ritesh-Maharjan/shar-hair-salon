@@ -41,7 +41,7 @@ div.therapist > img {
 	border-radius: 50%;
 }
 
-div.massage-container {
+div.service-container {
 	display: flex;
 	flex-direction: column;
 
@@ -51,7 +51,7 @@ div.massage-container {
 	}
 }
 
-div.massage-container > img {
+div.service-container > img {
 	width: 300px;
 	height: 300px;
 }
@@ -60,7 +60,7 @@ div.massage-container > img {
 	text-align: center;
 }
 
-.single-bdw-service .price-list {
+.single-shar-service .price-list {
 	flex-direction: column;
 	justify-content: center;
 

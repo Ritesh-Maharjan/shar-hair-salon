@@ -1,6 +1,6 @@
 <?php
 /**
- * BDW Massage functions and definitions
+ * Shar Hair Salon functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -19,15 +19,15 @@ if (!defined('_S_VERSION')) {
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-function bdwmassage_theme_setup()
+function shar_salon_setup()
 {
 	/*
 	 * Make theme available for translation.
 	 * Translations can be filed in the /languages/ directory.
 	 * If you're building a theme based on BDW Massage, use a find and replace
-	 * to change 'bdwmassage-theme' to the name of your theme in all the template files.
+	 * to change 'shar-hair-salon' to the name of your theme in all the template files.
 	 */
-	load_theme_textdomain('bdwmassage-theme', get_template_directory() . '/languages');
+	load_theme_textdomain('shar-hair-salon', get_template_directory() . '/languages');
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support('automatic-feed-links');
@@ -50,11 +50,11 @@ function bdwmassage_theme_setup()
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
-			'footer-middle' => esc_html__('Footer - Middle', 'bdw'),
-			'footer-left' => esc_html__('Footer - Left Side', 'bdw'),
-			'footer-right' => esc_html__('Footer - Right Side', 'bdw'),
-			'header-right' => esc_html__('header-right', 'bdw'),
-			'header-left' => esc_html__('header-left', 'bdw'),
+			'footer-middle' => esc_html__('Footer - Middle', 'shar-hair-salon'),
+			'footer-left' => esc_html__('Footer - Left Side', 'shar-hair-salon'),
+			'footer-right' => esc_html__('Footer - Right Side', 'shar-hair-salon'),
+			'header-right' => esc_html__('header-right', 'shar-hair-salon'),
+			'header-left' => esc_html__('header-left', 'shar-hair-salon'),
 		)
 	);
 
@@ -79,7 +79,7 @@ function bdwmassage_theme_setup()
 	add_theme_support(
 		'custom-background',
 		apply_filters(
-			'bdwmassage_theme_custom_background_args',
+			'shar_salon_custom_background_args',
 			array(
 				'default-color' => 'ffffff',
 				'default-image' => '',
@@ -105,7 +105,7 @@ function bdwmassage_theme_setup()
 		)
 	);
 }
-add_action('after_setup_theme', 'bdwmassage_theme_setup');
+add_action('after_setup_theme', 'shar_salon_setup');
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -114,11 +114,11 @@ add_action('after_setup_theme', 'bdwmassage_theme_setup');
  *
  * @global int $content_width
  */
-function bdwmassage_theme_content_width()
+function shar_salon_content_width()
 {
-	$GLOBALS['content_width'] = apply_filters('bdwmassage_theme_content_width', 640);
+	$GLOBALS['content_width'] = apply_filters('shar_salon_content_width', 640);
 }
-add_action('after_setup_theme', 'bdwmassage_theme_content_width', 0);
+add_action('after_setup_theme', 'shar_salon_content_width', 0);
 
 /**
  * Register widget area.
@@ -142,18 +142,16 @@ function my_dashboard_widget_display()
 	echo 'Hello, I am Mr. Widget. Download PDF for tutorial !';
 	echo '<br>';
 	echo '<br>';
-	echo '<a href="https://bdwmassage.bcitwebdeveloper.ca/wp-content/uploads/2024/05/BDW_MASSAGE.pdf" target="_blank">';
-	echo '<img src="https://bdwmassage.bcitwebdeveloper.ca/wp-content/uploads/2024/05/AdobeStock_417282083-scaled.jpeg" width="150" height="150px" alt="Image">';
-	echo '</a>';
+	echo '<a href="#" target="_blank">Tutorial PDF coming soon.</a>';
 }
 
-function bdwmassage_theme_widgets_init()
+function shar_salon_widgets_init()
 {
 	register_sidebar(
 		array(
-			'name' => esc_html__('Sidebar', 'bdwmassage-theme'),
+			'name' => esc_html__('Sidebar', 'shar-hair-salon'),
 			'id' => 'sidebar-1',
-			'description' => esc_html__('Add widgets here.', 'bdwmassage-theme'),
+			'description' => esc_html__('Add widgets here.', 'shar-hair-salon'),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget' => '</section>',
 			'before_title' => '<h2 class="widget-title">',
@@ -164,9 +162,9 @@ function bdwmassage_theme_widgets_init()
 
 	register_sidebar(
 		array(
-			'name' => esc_html__('Footer', 'bdwmassage-theme'),
+			'name' => esc_html__('Footer', 'shar-hair-salon'),
 			'id' => 'footer-sidebar',
-			'description' => esc_html__('Add widgets here.', 'bdwmassage-theme'),
+			'description' => esc_html__('Add widgets here.', 'shar-hair-salon'),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget' => '</section>',
 			'before_title' => '<h2 class="widget-title">',
@@ -174,27 +172,27 @@ function bdwmassage_theme_widgets_init()
 		)
 	);
 }
-add_action('widgets_init', 'bdwmassage_theme_widgets_init');
+add_action('widgets_init', 'shar_salon_widgets_init');
 
 /**
  * Enqueue scripts and styles.
  */
-function bdwmassage_theme_scripts()
+function shar_salon_scripts()
 {
-	wp_enqueue_style('bdwmassage-theme-style', get_stylesheet_uri(), array(), _S_VERSION);
-	wp_style_add_data('bdwmassage-theme-style', 'rtl', 'replace');
+	wp_enqueue_style('shar-hair-salon-style', get_stylesheet_uri(), array(), _S_VERSION);
+	wp_style_add_data('shar-hair-salon-style', 'rtl', 'replace');
 
-	wp_enqueue_script('bdwmassage-theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
+	wp_enqueue_script('shar-hair-salon-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
 
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
 
 	//fixes the is_single_bdw_service error but do not no if it will work for swiper on the service individual page
-	function is_single_bdw_service()
+	function is_single_shar_service()
 	{
 
-		if (get_post_type() == 'bdw-service' && is_single()) {
+		if (get_post_type() == 'shar-service' && is_single()) {
 			return true;
 		}
 
@@ -202,7 +200,7 @@ function bdwmassage_theme_scripts()
 	}
 
 	// swiper configuration
-	if (is_front_page() || is_single_bdw_service()) {
+	if (is_front_page() || is_single_shar_service()) {
 		wp_enqueue_style('swiper-styles', get_template_directory_uri() . '/css/swiper-bundle.css', array(), '11.0.6');
 		wp_enqueue_script('swiper-scripts', get_template_directory_uri() . '/js/swiper-bundle.min.js', array(), '11.0.6', array('strategy' => 'defer'));
 		wp_enqueue_script('swiper-settings', get_template_directory_uri() . '/js/swiper-settings.js', array('swiper-scripts'), _S_VERSION, array('strategy' => 'defer'));
@@ -244,7 +242,7 @@ function bdwmassage_theme_scripts()
 	wp_enqueue_style('top-feature', get_template_directory_uri() . '/css/top-feature.css', array(), _S_VERSION);
 
 }
-add_action('wp_enqueue_scripts', 'bdwmassage_theme_scripts');
+add_action('wp_enqueue_scripts', 'shar_salon_scripts');
 
 /**
  * Implement the Custom Header feature.
@@ -286,18 +284,18 @@ if (class_exists('WooCommerce')) {
 	require get_template_directory() . '/inc/woocommerce.php';
 }
 
-function bdw_excerpt_length()
+function shar_excerpt_length()
 {
 	return 40;
 }
 
-add_filter('excerpt_length', 'bdw_excerpt_length', 999);
+add_filter('excerpt_length', 'shar_excerpt_length', 999);
 
-function bdw_excerpt_more()
+function shar_excerpt_more()
 {
 	return '...';
 }
-add_filter('excerpt_more', 'bdw_excerpt_more');
+add_filter('excerpt_more', 'shar_excerpt_more');
 
 add_theme_support('post-thumbnails');
 //custom crop size 

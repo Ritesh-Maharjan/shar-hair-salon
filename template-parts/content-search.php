@@ -16,20 +16,20 @@
 		<?php if ( 'post' === get_post_type() ) : ?>
 		<div class="entry-meta">
 			<?php
-			bdwmassage_theme_posted_on();
-			bdwmassage_theme_posted_by();
+			shar_salon_posted_on();
+			shar_salon_posted_by();
 			?>
 		</div><!-- .entry-meta -->
 		<?php endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php bdwmassage_theme_post_thumbnail(); ?>
+	<?php shar_salon_post_thumbnail(); ?>
 
 	<div class="entry-summary">
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->
 
 	<footer class="entry-footer">
-		<?php bdwmassage_theme_entry_footer(); ?>
+		<?php shar_salon_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->

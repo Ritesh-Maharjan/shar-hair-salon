@@ -9,7 +9,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package bdwmassage-theme
+ * @package shar-hair-salon
  */
 
 get_header();

@@ -25,16 +25,16 @@
 	<?php wp_body_open(); ?>
 	<div id="page" class="site">
 		<a class="skip-link screen-reader-text"
-			href="#primary"><?php esc_html_e('Skip to content', 'bdwmassage-theme'); ?></a>
+			href="#primary"><?php esc_html_e('Skip to content', 'shar-hair-salon'); ?></a>
 
 		<header id="masthead" class="site-header">
 			<div class="site-branding">
 				<?php
-				$bdwmassage_theme_description = get_bloginfo('description', 'display');
-				if ($bdwmassage_theme_description || is_customize_preview()):
+				$shar_salon_description = get_bloginfo('description', 'display');
+				if ($shar_salon_description || is_customize_preview()):
 					?>
 					<p class="site-description">
-						<?php echo $bdwmassage_theme_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<?php echo $shar_salon_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</p>
 				<?php endif; ?>
 			</div><!-- .site-branding -->

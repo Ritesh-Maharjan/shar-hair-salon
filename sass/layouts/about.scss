@@ -1,0 +1,51 @@
+.about {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+img.wp-image-58 {
+  width: 1260px !important;
+  height: 560px;
+  @media (min-width: $tablet_size) {
+    width: 1260px !important;
+  }
+}
+
+figure.wp-block-image {
+    overflow: hidden;
+}
+
+img.wp-image-51 {
+  margin-right: 15px;
+  height: 250px !important;
+}
+
+img.wp-image-56 {
+  margin-right: 15px;
+  height: 250px !important;
+}
+
+.mission {
+  text-align: center;
+}
+
+.has-text-align-left {
+  font-size: 24px;
+  text-align: center;
+}
+
+div.about + div.wp-block-group.baagii {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+
+  @media (min-width: $tablet_size) {
+    flex-direction: row;
+  }
+}
+
+.page-id-72 {
+  .wp-block-group {
+    padding: 0;
+  }
+}

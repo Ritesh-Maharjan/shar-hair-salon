@@ -1,0 +1,19 @@
+{
+  "name": "fwd-capstone-project",
+  "version": "1.0.0",
+  "description": "FWD Capstone Project",
+  "author": "FWD Students",
+  "license": "GPL-3.0",
+  "main": "index.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "autoprefixer": "10.4.19",
+    "browser-sync": "3.0.2",
+    "gulp": "5.0.0",
+    "gulp-postcss": "10.0.0",
+    "gulp-dart-sass": "1.1.0",
+    "gulp-sourcemaps": "3.0.0"
+  }
+}

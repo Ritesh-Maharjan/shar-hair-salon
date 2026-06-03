@@ -1,0 +1,54 @@
+h1.page-title {
+	text-align: center;
+}
+
+div.services-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+div.service-thumbnail > img {
+	height: 200px;
+	object-fit: cover;
+	object-position: center;
+	color: aliceblue;
+}
+
+article.service-item {
+	padding: 1rem;
+	margin: 2rem;
+	border: 1px solid #638889;
+	border-radius: 50px;
+	display: flex; /* Add display flex */
+	flex-direction: column; /* Set flex direction to column */
+	align-items: center; /* Center items horizontally */
+	-webkit-box-shadow: 7px 2px 13px 1px rgba(0, 0, 0, 0.24);
+	box-shadow: 7px 2px 13px 1px rgba(0, 0, 0, 0.24);
+}
+
+article > div.price-list,
+.price-list {
+	display: flex;
+	flex-direction: column;
+
+	a {
+		text-decoration: none;
+		font-weight: bold;
+		color: black;
+		background-color: #fff1d7;
+		margin-bottom: 1rem;
+
+		:hover {
+			color: green;
+		}
+	}
+}
+
+article.service-item > a {
+	margin-top: 1rem; 
+}
+
+.service-book-for p{
+	font-weight: 700;
+}

@@ -1,0 +1,8 @@
+body {
+	background: $color__background-body; // Fallback for when there is no custom background color defined.	
+
+
+	article.page {
+		@include max-center();
+	}
+}

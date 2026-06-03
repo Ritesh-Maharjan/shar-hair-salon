@@ -1,0 +1,54 @@
+.wp-block-woocommerce-cart .wc-block-cart__submit-container {
+  background-color: #9dbc98;
+  border-radius: 10px;
+  &:hover {
+    background-color: rgba(48, 112, 50, 0.8078431373);
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.page-id-250 .wc-block-cart-item__wrap {
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: bolder;
+    font-size: 1.5rem;
+  }
+}
+
+.page-id-250
+  table.wc-block-cart-items
+  .wc-block-cart-items__row
+  .wc-block-cart-item__wrap
+  .wc-block-cart-item__remove-link {
+  /* Your styles here */
+  text-decoration: none;
+  background-color: #db6e6e;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: #8B0000;
+    color: white;
+  }
+}
+
+.wc-block-components-totals-coupon-link {
+  text-decoration: none;
+}
+
+
+.wc-block-grid__product-link{
+  text-decoration: none;
+  color: #4169e1;
+  font-weight: bold;
+
+  &:visited {
+    color: #4169e1;
+  }
+}

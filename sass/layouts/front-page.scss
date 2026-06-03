@@ -1,0 +1,174 @@
+.site-main {
+    background-color: rgb(242, 242, 242) ;
+    padding: 1rem;
+}
+
+.main {
+    background-color: rgb(242, 242, 242) ;
+}
+
+figure.wp-block-image.alignwide {
+    margin: 0;
+}
+
+.wp-block-image.alignwide img {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 5rem);
+    object-fit:cover;
+}
+
+.herop {
+    position: absolute;
+    z-index: 1;
+    font-family: $font__hero;
+    font-weight: 800;
+    font-size: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30%;
+    text-align: center;
+    color: black
+}
+
+.cta-btn {
+    background-color: $secondary-color;
+    font-weight: 500;
+    color: white;
+    padding: 15px 50px;
+    text-decoration: none;
+    border-radius: 15px;
+}
+
+.hero {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 80%;
+}
+
+.cta-btn:hover {
+    background-color: $hover-color; 
+    color: white;
+}
+
+.cta-btn:visited {
+    color: white;
+}
+
+.cta-btn p {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.company-info {
+    width: 80%; 
+    margin: 0 auto; 
+    text-align: center; 
+    
+    h2 {
+        padding-bottom: 25px;
+        margin-top: 20px;
+    }
+    p {
+        text-align: left;
+        font-size: 20px;
+        padding-bottom: 30px;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+}
+
+//  ------- Therapists --------
+.therapist-list {
+    text-align: center;
+    background-color: $accent-color;
+}
+
+.therapist-list h2 {
+    text-align: center;
+    font-size: 2rem;
+    padding-top: 70px;
+}
+
+.therapist-thumbnail img {
+    border-radius: 50%;
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+}
+
+.therapist-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    @include max-center ();
+    gap: 2rem;
+}
+
+.therapist {
+     
+    margin-bottom: 80px;
+}
+
+.therapist-details {
+    font-size: 18px;
+}
+
+.learn-more {
+    background-color: $secondary-color;
+    font-weight: 500;
+    color: white;
+    padding: 15px 50px;
+    border-radius: 10px;
+}
+
+.learn-more:hover {
+    background-color: $primary-color; 
+    color: white;
+}
+
+
+@media screen and (max-width: $tablet_size) {
+    .book-now {
+        top: 80%; 
+    }
+    .herop {
+        width: 30rem;
+    }
+    .therapist {
+        width: calc(50% - 10px);
+    }
+    .company-info {
+        p {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+    
+}
+
+@media screen and (max-width: $mobile_size) {
+    .herop {
+       width: auto;
+       font-size: 21px;
+       top: 15%;
+    }
+    .book-now {
+        top: 70%; 
+        padding: 10px 50px;
+    }
+    .therapist {
+        width: 100%;
+    }
+    .company-info {
+        p {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+    
+}

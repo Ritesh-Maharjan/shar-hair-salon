@@ -1,0 +1,21 @@
+body,
+button,
+input,
+select,
+optgroup,
+textarea {
+  color: $color__text-main;
+  font-family: $font__main;
+  font-size: 1rem;
+  line-height: $font__line-height-body;
+}
+
+$primary-color: #638889;
+$secondary-color: #9dbc98;
+$accent-color: #fff1d7;
+$hover-color: #307032ce;
+
+
+
+@import "headings";
+@import "copy";

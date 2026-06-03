@@ -1,0 +1,75 @@
+.single-service-title,
+h1,
+h3 {
+	text-align: center;
+}
+
+img.single-service-image + p {
+	@include max-center;
+}
+
+.single-service-image {
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+}
+
+h3 + div.price-list {
+	align-items: center;
+	margin: 0 auto;
+}
+
+div.therapists {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1.5rem;
+
+	h3 {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+div.therapist {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+div.therapist > img {
+	border-radius: 50%;
+}
+
+div.massage-container {
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: $mobile_size) {
+		flex-direction: row;
+		justify-content: space-evenly;
+	}
+}
+
+div.massage-container > img {
+	width: 300px;
+	height: 300px;
+}
+
+.similar-masssage-title {
+	text-align: center;
+}
+
+.single-bdw-service .price-list {
+	flex-direction: column;
+	justify-content: center;
+
+	a {
+		margin: 5px;
+	}
+
+	@media (min-width: $mobile_size) {
+		flex-direction: row;
+		justify-content: center;
+	}
+}

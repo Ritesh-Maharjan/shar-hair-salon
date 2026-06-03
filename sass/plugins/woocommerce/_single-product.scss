@@ -1,0 +1,47 @@
+.single-product {
+  main .woocommerce-notices-wrapper .woocommerce-message,
+  .woocommerce-info {
+    margin-top: 1rem;
+    text-align: center;
+    background-color: white;
+  }
+
+  div.product {
+    @include max-center();
+
+    .woocommerce-product-gallery,
+    .price {
+      display: none;
+    }
+
+    .cart {
+      .wc-bookings-booking-form-button {
+        background-color: #9dbc98;
+        color: white;
+        font-weight: 500;
+        padding: 15px 50px;
+        text-decoration: none;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+
+      .wc-bookings-booking-form-button:hover {
+        background-color: rgba(48, 112, 50, 0.8078431373);
+      }
+    }
+  }
+}
+
+.stock {
+  &:empty::before {
+    display: none;
+  }
+
+  &.in-stock {
+    color: $woocommerce__color-success;
+  }
+
+  &.out-of-stock {
+    color: $woocommerce__color-error;
+  }
+}

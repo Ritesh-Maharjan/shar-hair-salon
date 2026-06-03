@@ -1,0 +1,46 @@
+.wp-block-group {
+  @include max-center();
+
+  details {
+    summary {
+      background-color: $accent-color;
+      position: relative;
+      padding: 1rem;
+      font-size: 0.8rem;
+
+      &::before {
+        position: absolute;
+        content: "+";
+        right: 12px;
+        font-size: 2rem;
+        top: 0;
+        transform: translateY(-5%);
+      }
+    }
+
+    @media screen and (min-width: $tablet-size) {
+      summary {
+        font-size: 1.5rem;
+        &::before {
+          font-size: 3rem;
+          transform: translateY(-15%);
+        }
+      }
+    }
+
+    p {
+      padding: 0 1rem;
+    }
+  }
+
+  details[open] summary::before {
+    content: "-";
+  }
+
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+}

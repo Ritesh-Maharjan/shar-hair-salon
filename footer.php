@@ -15,21 +15,27 @@
 	<div class="site-footer">
 
 		<div class="footer-contact">
-			<?php
-
-			?>
 			<h3>Contact</h3>
-
-			<p> <a href="https://www.google.ca/maps/place/<?php echo get_field('address', 11); ?> " _target><?php get_template_part('images/address');
-				 echo get_field('address', 11); ?></a> </p>
-			<p> <a href="tel:<?php echo get_field('phone', 11); ?>"><?php get_template_part('images/phone');
-				echo get_field('phone', 11); ?></a> </p>
-			<p> <a href="mailto:<?php echo get_field('email', 11); ?>"> <?php get_template_part('images/mail');
-				echo get_field('email', 11); ?> </a></p>
-			<p> <a href="<?php echo get_field('insta', 11); ?>"><?php get_template_part('images/insta'); ?>
-					BigDuckWellness</a> </p>
-			<?php
-			?>
+			<?php if ( function_exists('get_field') ) : ?>
+				<?php $address = get_field('address', 'option'); ?>
+				<?php $phone   = get_field('phone',   'option'); ?>
+				<?php $email   = get_field('email',   'option'); ?>
+				<?php $insta   = get_field('insta',   'option'); ?>
+				<?php if ( $address ) : ?>
+				<p><a href="https://www.google.ca/maps/place/<?php echo esc_attr( $address ); ?>" target="_blank"><?php echo esc_html( $address ); ?></a></p>
+				<?php endif; ?>
+				<?php if ( $phone ) : ?>
+				<p><a href="tel:<?php echo esc_attr( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></p>
+				<?php endif; ?>
+				<?php if ( $email ) : ?>
+				<p><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p>
+				<?php endif; ?>
+				<?php if ( $insta ) : ?>
+				<p><a href="<?php echo esc_url( $insta ); ?>">Instagram</a></p>
+				<?php endif; ?>
+			<?php else : ?>
+				<p>Contact information coming soon.</p>
+			<?php endif; ?>
 		</div><!-- .footer-contact -->
 
 		<div class="footer-mid">
@@ -48,7 +54,7 @@
 				Book Now
 			</a>
 			<p class="made-with-love">
-				&copy; Made it with love by:<br /> Nikko, William, Baagii, Ritesh
+				&copy; <?php echo date('Y'); ?> Shar Hair Salon
 			</p>
 		</div>
 		<div class="opening-time">

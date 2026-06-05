@@ -179,7 +179,13 @@ add_action('widgets_init', 'shar_salon_widgets_init');
  */
 function shar_salon_scripts()
 {
-	wp_enqueue_style('shar-hair-salon-style', get_stylesheet_uri(), array(), _S_VERSION);
+	wp_enqueue_style(
+		'google-fonts-archivo',
+		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap',
+		array(),
+		null
+	);
+	wp_enqueue_style('shar-hair-salon-style', get_stylesheet_uri(), array( 'google-fonts-archivo' ), _S_VERSION);
 	wp_style_add_data('shar-hair-salon-style', 'rtl', 'replace');
 
 	wp_enqueue_script('shar-hair-salon-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);

@@ -1337,6 +1337,60 @@ div.about + div.wp-block-group.baagii {
 	color: rgba(0, 0, 0, 0.75);
 }
 
+/* ── Services page ──────────────────────────────────────────────────── */
+.services-page {
+	padding: 3rem 1.5rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.services-category {
+	margin-bottom: 4rem;
+}
+
+.services-category__title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	margin-bottom: 1.5rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 2px solid currentColor;
+}
+
+.services-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1.5rem;
+}
+
+.service-card__desc {
+	font-size: 0.85rem;
+	color: rgba(0,0,0,0.6);
+	margin: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.service-card__price {
+	font-weight: 600;
+	font-size: 0.85rem;
+}
+
+.service-card__duration {
+	font-size: 0.8rem;
+	color: rgba(0,0,0,0.5);
+}
+
+@media (max-width: 600px) {
+	.services-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ── Home marquee ────────────────────────────────────────────────────── */
 .home-marquee {
 	background-color: #342002;
 	overflow: hidden;

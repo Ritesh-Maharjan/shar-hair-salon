@@ -66,7 +66,15 @@ get_header();
                 <div class="service-card__body">
                     <div class="service-card__top">
                         <h3 class="service-card__title"><?php the_title(); ?></h3>
-                        <a href="<?php the_permalink(); ?>" class="service-card__btn">Book</a>
+                        <button
+                            type="button"
+                            class="service-card__btn"
+                            data-shar-book
+                            data-service-post-id="<?php the_ID(); ?>"
+                            data-service-variation-id="<?php echo esc_attr( get_post_meta( get_the_ID(), '_square_service_variation_id', true ) ); ?>"
+                            data-service-name="<?php echo esc_attr( get_the_title() ); ?>"
+                            data-service-price="<?php echo esc_attr( get_post_meta( get_the_ID(), '_booking_price', true ) ); ?>"
+                        >Book</button>
                     </div>
                     <?php if ( $price || $duration ) : ?>
                     <div class="service-card__meta">

@@ -181,7 +181,7 @@ function shar_salon_scripts()
 {
 	wp_enqueue_style(
 		'google-fonts-archivo',
-		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&display=swap',
+		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap',
 		array(),
 		null
 	);

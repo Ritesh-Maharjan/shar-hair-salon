@@ -14,32 +14,33 @@ get_header();
     <?php
     while ( have_posts() ) : the_post();
 
-    // Featured image first; fall back to first image found in page content blocks
-    $hero_img = '';
-    if ( has_post_thumbnail() ) {
-        $hero_img = get_the_post_thumbnail_url( null, 'full' );
-    } else {
-        preg_match( '/<img[^>]+src=["\']([^"\']+)["\']/', get_the_content(), $img_match );
-        if ( ! empty( $img_match[1] ) ) {
-            $hero_img = $img_match[1];
+    // Collect ACF hero images, skip empty slots
+    $hero_images = array();
+    if ( function_exists( 'get_field' ) ) {
+        foreach ( array( 'hero_image_one', 'hero_image_two', 'hero_image_three', 'hero_image_four' ) as $key ) {
+            $img = get_field( $key );
+            if ( ! $img ) continue;
+            $url = is_array( $img ) ? $img['url'] : $img;
+            if ( $url ) {
+                $hero_images[] = esc_url( $url );
+            }
         }
     }
-
-    $hero_style = $hero_img
-        ? 'style="background-image: url(\'' . esc_url( $hero_img ) . '\')"'
-        : '';
     ?>
-    <section class="home-hero" <?php echo $hero_style; ?>>
-        <h1 class="hero-title"><?php bloginfo( 'name' ); ?></h1>
-        <a class="hero-cta" href="/service/">Book Now</a>
+    <section class="home-hero">
+        <?php foreach ( $hero_images as $i => $url ) : ?>
+        <div class="hero-slide<?php echo $i === 0 ? ' is-active' : ''; ?>"
+             style="background-image: url('<?php echo $url; ?>')"></div>
+        <?php endforeach; ?>
     </section>
+    <h1 class="home-brand-name">SHARS HAIR LAB</h1>
     <?php endwhile; ?>
 
     <!-- Services -->
     <section class="home-services">
         <div class="home-services__header">
             <h2>Services</h2>
-            <a href="/service/" class="home-services__link">Book Now</a>
+            <a href="/services/" class="home-services__link">Book Now</a>
         </div>
         <div class="home-services__grid">
             <?php
@@ -198,6 +199,19 @@ get_header();
 </main>
 
 <script>
+// Hero slideshow
+(function () {
+    var slides = document.querySelectorAll('.hero-slide');
+    if (slides.length < 2) return;
+    var current = 0;
+    setInterval(function () {
+        slides[current].classList.remove('is-active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('is-active');
+    }, 4500);
+}());
+
+// Reviews carousel
 (function () {
     var carousel = document.querySelector('.js-reviews');
     if (!carousel) return;

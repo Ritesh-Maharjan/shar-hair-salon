@@ -24,7 +24,7 @@ ul.nav-menu > li > a {
     width: 100%;
     padding: 0.75rem 1.5rem;
     height: auto;
-    background: rgba(52, 32, 2, 0.85);
+    background: #f0e8e1;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 8px;
@@ -32,8 +32,24 @@ ul.nav-menu > li > a {
     bottom: auto;
     filter: none;
     box-sizing: border-box;
+    transition: border-radius 0.25s ease;
 
-    // Logo
+    // Logo — header image
+    .nav-logo-link {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        text-decoration: none;
+        z-index: 2;
+    }
+
+    .nav-logo {
+        height: 3rem;
+        width: auto;
+        display: block;
+    }
+
+    // Legacy custom-logo fallback
     .custom-logo-link {
         position: static;
         transform: none;
@@ -65,7 +81,7 @@ ul.nav-menu > li > a {
             width: 26px;
             height: 2px;
             display: block;
-            background-color: white;
+            background-color: #342002;
             border-radius: 2px;
             transition: transform 0.3s ease, opacity 0.2s;
         }
@@ -113,7 +129,7 @@ ul.nav-menu > li > a {
 
         a {
             display: block;
-            color: rgba(255, 255, 255, 0.9);
+            color: #342002;
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 600;
@@ -122,8 +138,8 @@ ul.nav-menu > li > a {
             padding: 0.4rem 0;
             transition: color 0.2s;
 
-            &:hover  { color: white; }
-            &:visited { color: rgba(255, 255, 255, 0.9); }
+            &:hover  { color: #000; }
+            &:visited { color: #342002; }
         }
 
         // Last item styled as CTA pill (Book Now)
@@ -158,6 +174,8 @@ ul.nav-menu > li > a {
 // Mobile nav — toggled open
 // =====================================================================
 .main-navigation.toggled {
+    border-radius: 8px 8px 0 0;
+
     .menu-toggle span:nth-child(1) {
         transform: translateY(8px) rotate(45deg);
     }
@@ -168,14 +186,17 @@ ul.nav-menu > li > a {
         transform: translateY(-8px) rotate(-45deg);
     }
 
-    div.menu {
+    div.menu-header-menu-container {
         display: block;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: rgba(52, 32, 2, 0.97);
+        background: #f0e8e1;
         padding: 0.5rem 0 1rem;
+        border-radius: 0 0 8px 8px;
+        overflow: hidden;
+        animation: mobile-nav-open 0.28s ease forwards;
 
         ul {
             flex-direction: column;
@@ -196,6 +217,24 @@ ul.nav-menu > li > a {
 
             &:hover { background: rgba(255, 255, 255, 0.06); }
         }
+
+        li:last-child > a {
+            color: #b6642e;
+
+            &:visited { color: #b6642e; }
+            &:hover { color: #b6642e; }
+        }
+    }
+}
+
+@keyframes mobile-nav-open {
+    from {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+    }
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0% 0);
     }
 }
 

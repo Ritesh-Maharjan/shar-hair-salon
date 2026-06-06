@@ -383,6 +383,10 @@ html {
 --------------------------------------------------------------*/
 /* Typography
 --------------------------------------------- */
+html {
+	background-color: #F3EEE8;
+}
+
 body,
 button,
 input,
@@ -393,6 +397,7 @@ textarea {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	font-size: 1rem;
 	line-height: 1.5;
+	background-color: #F3EEE8;
 }
 
 h1,
@@ -402,6 +407,19 @@ h4,
 h5,
 h6 {
 	clear: both;
+}
+
+h1 {
+	font-family: "Playfair Display", serif;
+	font-weight: 300;
+}
+
+.home-brand-name {
+	font-family: "Playfair Display", serif;
+	font-weight: 700;
+	font-size: 3.5rem;
+	letter-spacing: -0.02em;
+	text-align: center;
 }
 
 p {
@@ -681,7 +699,7 @@ ul.nav-menu > li > a {
 	width: 100%;
 	padding: 0.75rem 1.5rem;
 	height: auto;
-	background: rgba(52, 32, 2, 0.85);
+	background: #f0e8e1;
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
 	border-radius: 8px;
@@ -689,6 +707,19 @@ ul.nav-menu > li > a {
 	bottom: auto;
 	filter: none;
 	box-sizing: border-box;
+	transition: border-radius 0.25s ease;
+}
+.main-navigation .nav-logo-link {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	text-decoration: none;
+	z-index: 2;
+}
+.main-navigation .nav-logo {
+	height: 3rem;
+	width: auto;
+	display: block;
 }
 .main-navigation .custom-logo-link {
 	position: static;
@@ -718,7 +749,7 @@ ul.nav-menu > li > a {
 	width: 26px;
 	height: 2px;
 	display: block;
-	background-color: white;
+	background-color: #342002;
 	border-radius: 2px;
 	transition: transform 0.3s ease, opacity 0.2s;
 }
@@ -761,7 +792,7 @@ ul.nav-menu > li > a {
 }
 .main-navigation div.menu-header-menu-container a {
 	display: block;
-	color: rgba(255, 255, 255, 0.9);
+	color: #342002;
 	text-decoration: none;
 	font-size: 0.85rem;
 	font-weight: 600;
@@ -771,10 +802,10 @@ ul.nav-menu > li > a {
 	transition: color 0.2s;
 }
 .main-navigation div.menu-header-menu-container a:hover {
-	color: white;
+	color: #000;
 }
 .main-navigation div.menu-header-menu-container a:visited {
-	color: rgba(255, 255, 255, 0.9);
+	color: #342002;
 }
 .main-navigation div.menu-header-menu-container li:last-child > a {
 	background: linear-gradient(to right, #505718, #807443);
@@ -801,6 +832,9 @@ ul.nav-menu > li > a {
 	display: flex;
 }
 
+.main-navigation.toggled {
+	border-radius: 8px 8px 0 0;
+}
 .main-navigation.toggled .menu-toggle span:nth-child(1) {
 	transform: translateY(8px) rotate(45deg);
 }
@@ -810,34 +844,56 @@ ul.nav-menu > li > a {
 .main-navigation.toggled .menu-toggle span:nth-child(3) {
 	transform: translateY(-8px) rotate(-45deg);
 }
-.main-navigation.toggled div.menu {
+.main-navigation.toggled div.menu-header-menu-container {
 	display: block;
 	position: absolute;
 	top: 100%;
 	left: 0;
 	right: 0;
-	background: rgba(52, 32, 2, 0.97);
+	background: #f0e8e1;
 	padding: 0.5rem 0 1rem;
+	border-radius: 0 0 8px 8px;
+	overflow: hidden;
+	animation: mobile-nav-open 0.28s ease forwards;
 }
-.main-navigation.toggled div.menu ul {
+.main-navigation.toggled div.menu-header-menu-container ul {
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 0;
 }
-.main-navigation.toggled div.menu li:last-child > a {
+.main-navigation.toggled div.menu-header-menu-container li:last-child > a {
 	background: transparent;
 	border-radius: 0;
 	padding: 0.75rem 1.5rem;
 }
-.main-navigation.toggled div.menu a {
+.main-navigation.toggled div.menu-header-menu-container a {
 	padding: 0.75rem 1.5rem;
 	font-size: 0.9rem;
 	width: 100%;
 }
-.main-navigation.toggled div.menu a:hover {
+.main-navigation.toggled div.menu-header-menu-container a:hover {
 	background: rgba(255, 255, 255, 0.06);
 }
+.main-navigation.toggled div.menu-header-menu-container li:last-child > a {
+	color: #b6642e;
+}
+.main-navigation.toggled div.menu-header-menu-container li:last-child > a:visited {
+	color: #b6642e;
+}
+.main-navigation.toggled div.menu-header-menu-container li:last-child > a:hover {
+	color: #b6642e;
+}
 
+@keyframes mobile-nav-open {
+	from {
+		opacity: 0;
+		clip-path: inset(0 0 100% 0);
+	}
+	to {
+		opacity: 1;
+		clip-path: inset(0 0 0% 0);
+	}
+}
 body:not(.home) #primary,
 body:not(.home) .site-main {
 	padding-top: 7rem;
@@ -1110,21 +1166,38 @@ div.about + div.wp-block-group.baagii {
 
 .home-hero {
 	position: relative;
-	width: 100%;
-	height: 100vh;
-	min-height: 500px;
+	width: calc(100% - 3rem);
+	height: 75vh;
+	max-height: 900px;
+	min-height: 400px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	background-color: #A78A7F;
 	background-size: cover;
-	background-position: center top;
+	background-position: center 50%;
 	background-repeat: no-repeat;
-	margin: 0;
+	margin: 5rem auto 0;
 	padding: 0;
-	border-radius: 0;
+	border-radius: 12px;
 	box-sizing: border-box;
+	overflow: hidden;
+	opacity: 0;
+	animation: hero-reveal 2.5s ease forwards;
+}
+.home-hero .hero-slide {
+	position: absolute;
+	inset: 0;
+	background-size: cover;
+	background-position: center 50%;
+	background-repeat: no-repeat;
+	border-radius: inherit;
+	opacity: 0;
+	transition: opacity 1.2s ease;
+}
+.home-hero .hero-slide.is-active {
+	opacity: 1;
 }
 .home-hero::after {
 	content: "";
@@ -1135,6 +1208,7 @@ div.about + div.wp-block-group.baagii {
 	bottom: 0;
 	background: rgba(0, 0, 0, 0.3);
 	pointer-events: none;
+	border-radius: inherit;
 }
 .home-hero .hero-title {
 	position: relative;
@@ -1172,6 +1246,13 @@ div.about + div.wp-block-group.baagii {
 }
 .home-hero .hero-cta:visited {
 	color: white;
+}
+
+.home-brand-name {
+	color: var(--hp-dark);
+	margin: 2rem auto 0;
+	padding: 0 1.5rem;
+	line-height: 1.1;
 }
 
 .home-services {
@@ -1530,6 +1611,16 @@ div.about + div.wp-block-group.baagii {
 	color: #FFFFFF;
 }
 
+@keyframes hero-reveal {
+	from {
+		opacity: 0;
+		transform: translateY(16px) scale(0.99);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
 .staff-header {
 	text-align: center;
 	font: "Archivo", "Montserrat", Roboto, sans-serif;

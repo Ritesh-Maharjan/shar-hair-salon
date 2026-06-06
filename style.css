@@ -664,9 +664,9 @@ textarea {
 --------------------------------------------------------------*/
 .site-header {
 	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
+	top: 1rem;
+	left: 2rem;
+	right: 2rem;
 	z-index: 9999;
 }
 
@@ -679,11 +679,12 @@ ul.nav-menu > li > a {
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	padding: 0 1.5rem;
-	height: 5rem;
-	background: rgba(52, 32, 2, 0.92);
+	padding: 0.75rem 1.5rem;
+	height: auto;
+	background: rgba(52, 32, 2, 0.85);
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
+	border-radius: 8px;
 	position: relative;
 	bottom: auto;
 	filter: none;
@@ -726,17 +727,28 @@ ul.nav-menu > li > a {
 		display: none;
 	}
 }
-.main-navigation div.menu {
+.main-navigation div.menu-header-menu-container {
 	display: none;
+	flex: 1;
 }
 @media screen and (min-width: 778px) {
-	.main-navigation div.menu {
+	.main-navigation div.menu-header-menu-container {
 		display: flex;
 		align-items: center;
 		gap: 0;
 	}
 }
-.main-navigation div.menu ul {
+@media screen and (min-width: 778px) {
+	.main-navigation div.menu-header-menu-container:first-of-type {
+		justify-content: flex-start;
+	}
+}
+@media screen and (min-width: 778px) {
+	.main-navigation div.menu-header-menu-container:last-of-type {
+		justify-content: flex-end;
+	}
+}
+.main-navigation div.menu-header-menu-container ul {
 	display: flex;
 	align-items: center;
 	gap: 2rem;
@@ -744,10 +756,10 @@ ul.nav-menu > li > a {
 	margin: 0;
 	padding: 0;
 }
-.main-navigation div.menu li {
+.main-navigation div.menu-header-menu-container li {
 	position: relative;
 }
-.main-navigation div.menu a {
+.main-navigation div.menu-header-menu-container a {
 	display: block;
 	color: rgba(255, 255, 255, 0.9);
 	text-decoration: none;
@@ -758,22 +770,22 @@ ul.nav-menu > li > a {
 	padding: 0.4rem 0;
 	transition: color 0.2s;
 }
-.main-navigation div.menu a:hover {
+.main-navigation div.menu-header-menu-container a:hover {
 	color: white;
 }
-.main-navigation div.menu a:visited {
+.main-navigation div.menu-header-menu-container a:visited {
 	color: rgba(255, 255, 255, 0.9);
 }
-.main-navigation div.menu li:last-child > a {
+.main-navigation div.menu-header-menu-container li:last-child > a {
 	background: linear-gradient(to right, #505718, #807443);
 	color: white;
 	padding: 0.5rem 1.25rem;
 	border-radius: 3px;
 }
-.main-navigation div.menu li:last-child > a:hover {
+.main-navigation div.menu-header-menu-container li:last-child > a:hover {
 	opacity: 0.85;
 }
-.main-navigation div.menu ul ul {
+.main-navigation div.menu-header-menu-container ul ul {
 	display: none;
 	position: absolute;
 	top: 100%;
@@ -785,7 +797,7 @@ ul.nav-menu > li > a {
 	gap: 0;
 	flex-direction: column;
 }
-.main-navigation div.menu li:hover > ul {
+.main-navigation div.menu-header-menu-container li:hover > ul {
 	display: flex;
 }
 
@@ -828,7 +840,7 @@ ul.nav-menu > li > a {
 
 body:not(.home) #primary,
 body:not(.home) .site-main {
-	padding-top: 5rem;
+	padding-top: 7rem;
 }
 
 body.home #primary {
@@ -1337,60 +1349,6 @@ div.about + div.wp-block-group.baagii {
 	color: rgba(0, 0, 0, 0.75);
 }
 
-/* ── Services page ──────────────────────────────────────────────────── */
-.services-page {
-	padding: 3rem 1.5rem;
-	max-width: 1200px;
-	margin: 0 auto;
-}
-
-.services-category {
-	margin-bottom: 4rem;
-}
-
-.services-category__title {
-	font-size: 1.5rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	margin-bottom: 1.5rem;
-	padding-bottom: 0.5rem;
-	border-bottom: 2px solid currentColor;
-}
-
-.services-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-	gap: 1.5rem;
-}
-
-.service-card__desc {
-	font-size: 0.85rem;
-	color: rgba(0,0,0,0.6);
-	margin: 0;
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-
-.service-card__price {
-	font-weight: 600;
-	font-size: 0.85rem;
-}
-
-.service-card__duration {
-	font-size: 0.8rem;
-	color: rgba(0,0,0,0.5);
-}
-
-@media (max-width: 600px) {
-	.services-grid {
-		grid-template-columns: 1fr;
-	}
-}
-
-/* ── Home marquee ────────────────────────────────────────────────────── */
 .home-marquee {
 	background-color: #342002;
 	overflow: hidden;

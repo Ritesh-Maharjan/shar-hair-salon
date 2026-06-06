@@ -49,14 +49,16 @@
 				wp_nav_menu(
 					array(
 						'theme_location' => 'header-left',
-						'menu_id' => 'primary-menu',
+						'menu_id' => 'primary-menu-left',
+						'fallback_cb' => false,
 					)
 				);
 
 				wp_nav_menu(
 					array(
 						'theme_location' => 'header-right',
-						'menu_id' => 'primary-menu',
+						'menu_id' => 'primary-menu-right',
+						'fallback_cb' => false,
 					)
 				);
 

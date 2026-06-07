@@ -304,7 +304,9 @@ function shar_excerpt_more()
 add_filter('excerpt_more', 'shar_excerpt_more');
 
 add_theme_support('post-thumbnails');
-//custom crop size 
+add_post_type_support('shar-service', 'thumbnail');
+add_post_type_support('shar-service', 'excerpt');
+//custom crop size
 add_image_size('blog-image', 200, 250, true);
 add_image_size('featured-image', 285, 200, true);
 add_image_size('staff-photo', 335, 335, true);

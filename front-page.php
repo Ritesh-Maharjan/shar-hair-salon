@@ -32,6 +32,16 @@ get_header();
         <div class="hero-slide<?php echo $i === 0 ? ' is-active' : ''; ?>"
              style="background-image: url('<?php echo $url; ?>')"></div>
         <?php endforeach; ?>
+
+        <?php if ( count( $hero_images ) > 1 ) : ?>
+        <div class="hero-progress">
+            <?php foreach ( $hero_images as $i => $url ) : ?>
+            <button class="hero-progress__bar<?php echo $i === 0 ? ' is-active' : ''; ?>"
+                    data-index="<?php echo $i; ?>"
+                    aria-label="Go to slide <?php echo $i + 1; ?>"></button>
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
     </section>
     <h1 class="home-brand-name">SHARS HAIR LAB</h1>
     <?php endwhile; ?>
@@ -53,14 +63,25 @@ get_header();
             if ( $services_query->have_posts() ) :
                 while ( $services_query->have_posts() ) :
                     $services_query->the_post();
-                    $price    = function_exists( 'get_field' ) ? get_field( 'price' )    : '';
-                    $duration = function_exists( 'get_field' ) ? get_field( 'duration' ) : '';
+                    $price         = function_exists( 'get_field' ) ? get_field( 'price' )    : '';
+                    $duration      = function_exists( 'get_field' ) ? get_field( 'duration' ) : '';
+                    $attach_id     = get_post_meta( get_the_ID(), '_square_image_attachment_id', true );
+                    $service_img   = $attach_id ? wp_get_attachment_image_url( $attach_id, 'large' ) : '';
+                    // Extract plain description from post content (strip image block)
+                    $raw_blocks    = parse_blocks( get_the_content() );
+                    $service_desc  = '';
+                    foreach ( $raw_blocks as $b ) {
+                        if ( $b['blockName'] === 'core/paragraph' && ! empty( $b['innerHTML'] ) ) {
+                            $service_desc = wp_strip_all_tags( $b['innerHTML'] );
+                            break;
+                        }
+                    }
             ?>
             <article class="service-card">
-                <?php if ( has_post_thumbnail() ) : ?>
+                <?php if ( $service_img ) : ?>
                 <div class="service-card__image">
                     <a href="<?php the_permalink(); ?>">
-                        <?php the_post_thumbnail( 'large' ); ?>
+                        <img src="<?php echo esc_url( $service_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
                     </a>
                 </div>
                 <?php endif; ?>
@@ -86,6 +107,9 @@ get_header();
                         <span><strong>Duration:</strong> <?php echo esc_html( $duration ); ?> min</span>
                         <?php endif; ?>
                     </div>
+                    <?php endif; ?>
+                    <?php if ( $service_desc ) : ?>
+                    <p class="service-card__desc"><?php echo esc_html( wp_trim_words( $service_desc, 20, '…' ) ); ?></p>
                     <?php endif; ?>
                 </div>
             </article>
@@ -137,20 +161,26 @@ get_header();
     $testimonial_query = new WP_Query( $testimonial_args );
 
     if ( $testimonial_query->have_posts() ) :
-        $reviews     = array();
-        $review_imgs = array();
+        $reviews = array();
         while ( $testimonial_query->have_posts() ) :
             $testimonial_query->the_post();
+            $acf_img = function_exists( 'get_field' ) ? get_field( 'testimonial_image' ) : '';
+            $img_url = '';
+            if ( $acf_img ) {
+                $img_url = is_array( $acf_img ) ? $acf_img['url'] : $acf_img;
+            } elseif ( has_post_thumbnail() ) {
+                $img_url = get_the_post_thumbnail_url( null, 'large' );
+            }
             $reviews[] = array(
                 'title'   => get_the_title(),
                 'content' => get_the_content(),
-                'thumb'   => has_post_thumbnail() ? get_the_post_thumbnail_url( null, 'large' ) : '',
+                'img'     => $img_url,
             );
         endwhile;
         wp_reset_postdata();
 
-        $total       = count( $reviews );
-        $side_img    = ! empty( $reviews[0]['thumb'] ) ? $reviews[0]['thumb'] : '';
+        $total    = count( $reviews );
+        $has_imgs = ! empty( array_filter( array_column( $reviews, 'img' ) ) );
     ?>
     <section class="home-reviews">
         <div class="home-reviews__inner">
@@ -165,7 +195,7 @@ get_header();
                     <?php foreach ( $reviews as $i => $review ) : ?>
                     <blockquote class="review-item<?php echo $i === 0 ? ' is-active' : ''; ?>" data-index="<?php echo $i; ?>">
                         <p><?php echo wp_kses_post( $review['content'] ); ?></p>
-                        <footer class="review-author"><?php echo esc_html( $review['title'] ); ?></footer>
+                        <cite class="review-author"><?php echo esc_html( $review['title'] ); ?></cite>
                     </blockquote>
                     <?php endforeach; ?>
                 </div>
@@ -180,16 +210,21 @@ get_header();
                     </button>
                 </nav>
 
-                <?php if ( ! empty( $side_img ) ) : ?>
-                <div class="reviews-cta">
-                    <a href="<?php echo get_permalink( get_page_by_path( 'about' ) ); ?>">All Reviews</a>
-                </div>
-                <?php endif; ?>
             </div>
 
-            <?php if ( ! empty( $side_img ) ) : ?>
+            <?php if ( $has_imgs ) : ?>
             <div class="home-reviews__image">
-                <img src="<?php echo esc_url( $side_img ); ?>" alt="Review" loading="lazy">
+                <?php foreach ( $reviews as $i => $review ) : ?>
+                <?php if ( ! empty( $review['img'] ) ) : ?>
+                <img
+                    src="<?php echo esc_url( $review['img'] ); ?>"
+                    alt="<?php echo esc_attr( $review['title'] ); ?>"
+                    class="review-img<?php echo $i === 0 ? ' is-active' : ''; ?>"
+                    data-index="<?php echo $i; ?>"
+                    loading="lazy"
+                >
+                <?php endif; ?>
+                <?php endforeach; ?>
             </div>
             <?php endif; ?>
         </div>
@@ -199,35 +234,79 @@ get_header();
 </main>
 
 <script>
-// Hero slideshow
+// Hero slideshow with progress bars
 (function () {
     var slides = document.querySelectorAll('.hero-slide');
+    var bars   = document.querySelectorAll('.hero-progress__bar');
     if (slides.length < 2) return;
+
     var current = 0;
-    setInterval(function () {
+    var timer;
+
+    function goTo(idx) {
         slides[current].classList.remove('is-active');
-        current = (current + 1) % slides.length;
+
+        current = ((idx % slides.length) + slides.length) % slides.length;
+
+        bars.forEach(function (bar, i) {
+            bar.classList.remove('is-active', 'is-done');
+            if (i < current) {
+                bar.classList.add('is-done');
+            }
+        });
+
+        // Force reflow so animation restarts cleanly
+        void bars[current].offsetWidth;
+        bars[current].classList.add('is-active');
+
         slides[current].classList.add('is-active');
-    }, 4500);
+
+        clearInterval(timer);
+        timer = setInterval(function () { goTo(current + 1); }, 4500);
+    }
+
+    bars.forEach(function (bar, i) {
+        bar.addEventListener('click', function () { goTo(i); });
+    });
+
+    timer = setInterval(function () { goTo(current + 1); }, 4500);
 }());
 
 // Reviews carousel
 (function () {
     var carousel = document.querySelector('.js-reviews');
     if (!carousel) return;
-    var items = carousel.querySelectorAll('.review-item');
-    var count = parseInt(carousel.dataset.total, 10);
+    var items   = carousel.querySelectorAll('.review-item');
+    var imgs    = document.querySelectorAll('.review-img');
+    var count   = parseInt(carousel.dataset.total, 10);
     var current = 0;
+    var timer;
 
     function show(idx) {
         items[current].classList.remove('is-active');
+        if (imgs[current]) imgs[current].classList.remove('is-active');
         current = (idx + count) % count;
         items[current].classList.add('is-active');
+        if (imgs[current]) imgs[current].classList.add('is-active');
         document.querySelector('.js-review-count').textContent = (current + 1) + ' / ' + count;
     }
 
-    document.querySelector('.js-review-prev').addEventListener('click', function () { show(current - 1); });
-    document.querySelector('.js-review-next').addEventListener('click', function () { show(current + 1); });
+    function startAuto() {
+        timer = setInterval(function () { show(current + 1); }, 3000);
+    }
+
+    document.querySelector('.js-review-prev').addEventListener('click', function () {
+        clearInterval(timer);
+        show(current - 1);
+        startAuto();
+    });
+    document.querySelector('.js-review-next').addEventListener('click', function () {
+        clearInterval(timer);
+        show(current + 1);
+        startAuto();
+    });
+
+    startAuto();
 }());
 </script>
 

@@ -1,26 +1,44 @@
 footer {
   background-color: $primary-color;
   color: white;
-  padding-bottom: 5rem;
-  margin-bottom: -2rem;
+  padding-bottom: 0;
+  margin-bottom: 0;
 
   .site-footer {
-    @include flex-between();
-    @include container();
-    @include max-center();
-    flex-direction: column;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    align-items: start;
 
     @media screen and (min-width: $tablet_size) {
-      flex-direction: row;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 4rem 3rem;
     }
 
+    h3 {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+
+    // ── Left: Contact ────────────────────────────────────────────────────
     .footer-contact {
+      p {
+        margin: 0 0 0.5rem;
+      }
+
       p a {
-        display: flex;
-        align-items: center;
         text-decoration: none;
         color: white;
+
+        &:hover {
+          opacity: 0.7;
+        }
 
         svg path:not(:first-child) {
           stroke: white;
@@ -28,37 +46,84 @@ footer {
       }
     }
 
+    // ── Centre: Nav + CTA + Copyright ────────────────────────────────────
     .footer-mid {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      order: 3;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
 
       nav ul.footer-menu {
         list-style: none;
         margin: 0;
+        padding: 0;
         display: flex;
-        gap:2rem;
+        flex-direction: column;
+        gap: 0.4rem;
 
-        li a {
-          text-decoration: none;
-          color: white;
+        li {
+          margin: 0;
+          padding: 0;
+
+          a {
+            text-decoration: none;
+            color: white;
+            opacity: 0.8;
+            padding: 0;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
         }
       }
     }
 
-    @media screen and (min-width: $tablet-size) {
-      .footer-mid {
-        margin: auto;
-        text-align: center;
-        order: 0;
+    // ── Right: Opening Hours ─────────────────────────────────────────────
+    .opening-time {
+      text-align: right;
+
+      @media screen and (max-width: #{$tablet_size - 1px}) {
+        text-align: left;
       }
     }
   }
 }
 
-@media screen and (min-width: $tablet-size) {
-  footer {
-    padding-bottom: 0rem;
+// ── Business Hours list ──────────────────────────────────────────────────
+.footer-hours {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .hours-day {
+    font-weight: 600;
+    min-width: 90px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hours-time {
+    text-align: right;
+  }
+
+  .hours-closed {
+    opacity: 0.5;
+    font-style: italic;
   }
 }

@@ -1,51 +1,96 @@
-.about {
-  text-align: center;
-  margin-bottom: 60px;
+// =====================================================================
+// About Page
+// =====================================================================
+
+.about-hero {
+    padding: 4rem 1.5rem 5rem;
+
+    &__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+
+        @media (min-width: 900px) {
+            flex-direction: row;
+            align-items: center;
+            gap: 5rem;
+        }
+    }
+
+    &__text {
+        flex: 1;
+
+        @media (min-width: 900px) {
+            max-width: 55%;
+        }
+    }
+
+    &__title {
+        font-family: $font__hero;
+        font-weight: 700;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: #342002;
+        margin: 0 0 1.5rem;
+        line-height: 1.15;
+    }
+
+    &__content {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #333;
+
+        p { margin: 0 0 1.25rem; }
+        p:last-child { margin-bottom: 0; }
+
+        h2, h3 {
+            font-family: $font__hero;
+            color: #342002;
+            margin: 2rem 0 0.75rem;
+        }
+    }
+
+    &__image {
+        flex: 1;
+
+        @media (min-width: 900px) {
+            max-width: 45%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            max-height: 600px;
+            object-fit: cover;
+            display: block;
+            border-radius: 12px;
+        }
+    }
 }
 
-img.wp-image-58 {
-  width: 1260px !important;
-  height: 560px;
-  @media (min-width: $tablet_size) {
-    width: 1260px !important;
-  }
-}
+// =====================================================================
+// About — Extra content (cancellation policy, etc.)
+// =====================================================================
+.about-extra {
+    background: #F3EEE8;
+    padding: 3rem 1.5rem 5rem;
 
-figure.wp-block-image {
-    overflow: hidden;
-}
+    &__inner {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #333;
 
-img.wp-image-51 {
-  margin-right: 15px;
-  height: 250px !important;
-}
+        p { margin: 0 0 1.25rem; }
+        p:last-child { margin-bottom: 0; }
 
-img.wp-image-56 {
-  margin-right: 15px;
-  height: 250px !important;
-}
-
-.mission {
-  text-align: center;
-}
-
-.has-text-align-left {
-  font-size: 24px;
-  text-align: center;
-}
-
-div.about + div.wp-block-group.baagii {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-
-  @media (min-width: $tablet_size) {
-    flex-direction: row;
-  }
-}
-
-.page-id-72 {
-  .wp-block-group {
-    padding: 0;
-  }
+        h2, h3 {
+            font-family: $font__hero;
+            font-weight: 700;
+            color: #342002;
+            margin: 0 0 1rem;
+        }
+    }
 }

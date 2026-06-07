@@ -18,6 +18,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 
+	<!-- Playfair Display Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
 	<?php wp_head(); ?>
 </head>
 
@@ -40,6 +45,17 @@
 			</div><!-- .site-branding -->
 
 			<nav id="site-navigation" class="main-navigation">
+				<?php $header_img = get_header_image(); ?>
+				<?php if ( $header_img ) : ?>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav-logo-link">
+					<img
+						src="<?php echo esc_url( $header_img ); ?>"
+						alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
+						class="nav-logo"
+					>
+				</a>
+				<?php endif; ?>
+
 				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
 					<span></span>
 					<span></span>
@@ -49,19 +65,18 @@
 				wp_nav_menu(
 					array(
 						'theme_location' => 'header-left',
-						'menu_id' => 'primary-menu',
+						'menu_id' => 'primary-menu-left',
+						'fallback_cb' => false,
 					)
 				);
 
 				wp_nav_menu(
 					array(
 						'theme_location' => 'header-right',
-						'menu_id' => 'primary-menu',
+						'menu_id' => 'primary-menu-right',
+						'fallback_cb' => false,
 					)
 				);
-
-				the_custom_logo();
-
 				?>
 			</nav><!-- #site-navigation -->
 		</header><!-- #masthead -->

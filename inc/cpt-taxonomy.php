@@ -20,22 +20,25 @@ function create_service_post_type()
     $args = array(
         'labels' => $labels,
         'public' => true,
-        'publicly_queryable' => true,
+        'publicly_queryable' => false,
         'show_ui' => true,
         'show_in_menu' => true,
         'show_in_rest' => true,
         'query_var' => true,
         'rewrite' => array('slug' => 'service'),
         'capability_type' => 'post',
-        'has_archive' => true,
+        'has_archive' => false,
         'hierarchical' => false,
         'menu_position' => null,
-        'menu_icon' => 'dashicons-admin-tools',
-        'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
+        'menu_icon' => 'dashicons-scissors',
+        'supports' => array('title', 'editor'),
         'template' => array(
-            array('core/paragraph'),
-            array('core/button'),
+            array('core/image', array()),
+            array('core/paragraph', array(
+                'placeholder' => 'Write a short description of this service…',
+            )),
         ),
+        'template_lock' => 'all',
     );
 
     register_post_type('shar-service', $args);
@@ -124,6 +127,7 @@ function create_service_post_type()
 add_action('init', 'create_service_post_type');
 
 
+
 // Taxonomies
 function register_taxonomies()
 {
@@ -154,32 +158,21 @@ function register_taxonomies()
 
     register_taxonomy('shar-testimonial-taxonomy', array('shar-testimonial'), $args);
 
-    // Taxonomies for the service page
-    $labels = array(
-        'name' => _x('Staff taxonomy', 'taxonomy general name'),
-        'singular_name' => _x('Staff taxonomy', 'taxonomy singular name'),
-        'search_items' => __('Search Staff taxonomy'),
-        'all_items' => __('All Staff taxonomy'),
-        'parent_item' => __('Parent Staff taxonomy'),
-        'parent_item_colon' => __('Parent Staff taxonomy:'),
-        'edit_item' => __('Edit Staff taxonomy'),
-        'update_item' => __('Update Staff taxonomy'),
-        'add_new_item' => __('Add New Staff taxonomy'),
-        'new_item_name' => __('New Work Staff taxonomy'),
-        'menu_name' => __('Staff taxonomy'),
-    );
 
-    $args = array(
-        'hierarchical' => true,
-        'labels' => $labels,
-        'show_ui' => true,
+    // Service categories — synced from Square.
+    register_taxonomy('shar-service-category', array('shar-service'), array(
+        'hierarchical'      => true,
+        'labels'            => array(
+            'name'          => 'Service Categories',
+            'singular_name' => 'Service Category',
+            'menu_name'     => 'Categories',
+        ),
+        'show_ui'           => true,
         'show_admin_column' => true,
-        'show_in_rest' => true,
-        'query_var' => true,
-        'rewrite' => array('slug' => 'staff'),
-    );
-
-    register_taxonomy('shar-staff-taxonomy', array('shar-service'), $args);
+        'show_in_rest'      => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'service-category'),
+    ));
 
 }
 add_action('init', 'register_taxonomies');

@@ -1,174 +1,549 @@
-.site-main {
-    background-color: rgb(242, 242, 242) ;
-    padding: 1rem;
+// =====================================================================
+// Front Page — GlossGenius-inspired layout
+// =====================================================================
+
+// Page-level CSS custom properties
+.home-page {
+    --hp-bg:         #A78A7F;
+    --hp-dark:       #342002;
+    --hp-olive-1:    #505718;
+    --hp-olive-2:    #807443;
+    --hp-light:      #FFFFFF;
+    --hp-cream:      #F3EEE8;
+    --hp-text-on-dark: #FFFFFF;
+    --hp-text-on-light: #1a1a1a;
+    --hp-gradient:   linear-gradient(to right, #505718, #807443);
+    background: var(--hp-cream);
 }
 
-.main {
-    background-color: rgb(242, 242, 242) ;
-}
-
-figure.wp-block-image.alignwide {
-    margin: 0;
-}
-
-.wp-block-image.alignwide img {
+// =====================================================================
+// Hero — background goes directly on the section element
+// =====================================================================
+.home-hero {
     position: relative;
-    width: 100%;
-    height: calc(100vh - 5rem);
-    object-fit:cover;
-}
-
-.herop {
-    position: absolute;
-    z-index: 1;
-    font-family: $font__hero;
-    font-weight: 800;
-    font-size: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 30%;
-    text-align: center;
-    color: black
-}
-
-.cta-btn {
-    background-color: $secondary-color;
-    font-weight: 500;
-    color: white;
-    padding: 15px 50px;
-    text-decoration: none;
-    border-radius: 15px;
-}
-
-.hero {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 80%;
-}
-
-.cta-btn:hover {
-    background-color: $hover-color; 
-    color: white;
-}
-
-.cta-btn:visited {
-    color: white;
-}
-
-.cta-btn p {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.2rem;
-}
-
-.company-info {
-    width: 80%; 
-    margin: 0 auto; 
-    text-align: center; 
-    
-    h2 {
-        padding-bottom: 25px;
-        margin-top: 20px;
-    }
-    p {
-        text-align: left;
-        font-size: 20px;
-        padding-bottom: 30px;
-        padding-left: 100px;
-        padding-right: 100px;
-    }
-}
-
-//  ------- Therapists --------
-.therapist-list {
-    text-align: center;
-    background-color: $accent-color;
-}
-
-.therapist-list h2 {
-    text-align: center;
-    font-size: 2rem;
-    padding-top: 70px;
-}
-
-.therapist-thumbnail img {
-    border-radius: 50%;
-    height: 300px;
-    width: 300px;
-    object-fit: cover;
-}
-
-.therapist-grid {
+    width: calc(100% - 3rem);
+    height: 75vh;
+    max-height: 900px;
+    min-height: 400px;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 100px;
-    margin-top: 100px;
-    @include max-center ();
-    gap: 2rem;
-}
+    background-color: #A78A7F;
+    background-size: cover;
+    background-position: center 50%;
+    background-repeat: no-repeat;
+    margin: 5rem auto 0;
+    padding: 0;
+    border-radius: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    opacity: 0;
+    animation: hero-reveal 2.5s ease forwards;
 
-.therapist {
-     
-    margin-bottom: 80px;
-}
+    // Slideshow slides
+    .hero-slide {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center 50%;
+        background-repeat: no-repeat;
+        border-radius: inherit;
+        opacity: 0;
+        transition: opacity 1.2s ease;
 
-.therapist-details {
-    font-size: 18px;
-}
-
-.learn-more {
-    background-color: $secondary-color;
-    font-weight: 500;
-    color: white;
-    padding: 15px 50px;
-    border-radius: 10px;
-}
-
-.learn-more:hover {
-    background-color: $primary-color; 
-    color: white;
-}
-
-
-@media screen and (max-width: $tablet_size) {
-    .book-now {
-        top: 80%; 
+        &.is-active { opacity: 1; }
     }
-    .herop {
-        width: 30rem;
-    }
-    .therapist {
-        width: calc(50% - 10px);
-    }
-    .company-info {
-        p {
-            padding-left: 50px;
-            padding-right: 50px;
+
+    // Progress bars
+    .hero-progress {
+        position: absolute;
+        bottom: 1.25rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        z-index: 3;
+        display: flex;
+        gap: 0.4rem;
+
+        &__bar {
+            flex: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.254);
+            border-radius: 2rem;
+            cursor: pointer;
+            padding: 6px 0;
+            background-clip: content-box;
+            position: relative;
+            overflow: visible;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 100%;
+                background: #ffffff78;
+                border-radius: 2rem;
+            }
+
+            &.is-done::after {
+                width: 100%;
+            }
+
+            &.is-active::after {
+                animation: progress-fill 4.5s linear forwards;
+            }
         }
     }
-    
+
+    // Dark overlay for text legibility
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.30);
+        pointer-events: none;
+        border-radius: inherit;
+    }
+
+    .hero-title {
+        position: relative;
+        z-index: 1;
+        font-family: $font__hero;
+        font-weight: 800;
+        font-size: clamp(2.5rem, 8vw, 7rem);
+        color: #FFFFFF;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin: 0 0 2rem;
+        padding: 0 1.5rem;
+        line-height: 1.1;
+        text-decoration: none;
+    }
+
+    .hero-cta {
+        position: relative;
+        z-index: 1;
+        background: linear-gradient(to right, #505718, #807443);
+        color: #FFFFFF;
+        font-family: $font__hero;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1rem 3rem;
+        border-radius: 3px;
+        transition: opacity 0.2s;
+
+        &:hover  { opacity: 0.88; color: white; }
+        &:visited { color: white; }
+    }
 }
 
-@media screen and (max-width: $mobile_size) {
-    .herop {
-       width: auto;
-       font-size: 21px;
-       top: 15%;
-    }
-    .book-now {
-        top: 70%; 
-        padding: 10px 50px;
-    }
-    .therapist {
-        width: 100%;
-    }
-    .company-info {
-        p {
-            padding-left: 10px;
-            padding-right: 10px;
+// =====================================================================
+// Brand name — below hero
+// =====================================================================
+.home-brand-name {
+    color: var(--hp-dark);
+    margin: 2rem auto 0;
+    padding: 0 1.5rem;
+    line-height: 1.1;
+}
+
+// =====================================================================
+// Services Section
+// =====================================================================
+.home-services {
+    background-color: var(--hp-cream);
+    padding: 5rem 1.5rem 4rem;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1400px;
+        margin: 0 auto 2.5rem;
+
+        h2 {
+            font-family: $font__hero;
+            font-weight: 800;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--hp-text-on-light);
+            margin: 0;
+            text-align: left;
         }
     }
-    
+
+    &__link {
+        font-family: $font__hero;
+        font-weight: 600;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--hp-dark);
+        text-decoration: none;
+        border-bottom: 2px solid currentColor;
+        padding-bottom: 2px;
+        white-space: nowrap;
+
+        &:hover  { opacity: 0.7; }
+        &:visited { color: var(--hp-dark); }
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 900px;
+        margin: 0 auto;
+
+        @media (min-width: 640px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    &__view-all {
+        text-align: center;
+        margin-top: 3rem;
+
+        a {
+            font-family: $font__hero;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--hp-dark);
+            text-decoration: none;
+            border-bottom: 2px solid currentColor;
+            padding-bottom: 2px;
+
+            &:hover  { opacity: 0.7; }
+            &:visited { color: var(--hp-dark); }
+        }
+    }
+}
+
+// =====================================================================
+// Service Card
+// =====================================================================
+.service-card {
+    background: var(--hp-light);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+    }
+
+    &__image {
+        height: 220px;
+        overflow: hidden;
+
+        a { display: block; height: 100%; }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        &:hover img { transform: scale(1.04); }
+    }
+
+    &__body {
+        padding: 1.25rem 1rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    &__title {
+        font-family: $font__hero;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--hp-text-on-light);
+        margin: 0;
+        line-height: 1.35;
+        flex: 1;
+        text-align: left;
+    }
+
+    &__btn {
+        background: linear-gradient(to right, #505718, #807443);
+        color: white;
+        padding: 0.35rem 0.85rem;
+        border-radius: 2px;
+        text-decoration: none;
+        font-family: $font__hero;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: opacity 0.2s;
+        border: none;
+        cursor: pointer;
+
+        &:hover  { opacity: 0.85; color: white; }
+        &:visited { color: white; }
+    }
+
+    &__meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        font-size: 0.75rem;
+        color: rgba(0, 0, 0, 0.6);
+
+        span   { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+        strong { color: rgba(0, 0, 0, 0.75); }
+    }
+
+    &__desc {
+        font-size: 0.85rem;
+        line-height: 1.65;
+        color: rgba(0, 0, 0, 0.65);
+        margin: 0.5rem 0 0;
+    }
+}
+
+// =====================================================================
+// Marquee Ticker
+// =====================================================================
+.home-marquee {
+    background-color: #342002;
+    overflow: hidden;
+    padding: 1.1rem 0;
+
+    .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: marquee-scroll 70s linear infinite;
+    }
+
+    .marquee-list {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-shrink: 0;
+
+        li {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            color: #FFFFFF;
+            font-family: $font__hero;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0 0.25rem;
+        }
+
+        .marquee-dot {
+            opacity: 0.6;
+            margin-right: 0.25rem;
+        }
+    }
+
+    &:hover .marquee-track {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+// =====================================================================
+// Reviews / Testimonials
+// =====================================================================
+.home-reviews {
+    background-color: #A78A7F;
+    padding: 5rem 1.5rem;
+
+    &__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: center;
+
+        @media (min-width: 900px) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    &__content {
+        color: #FFFFFF;
+    }
+
+    &__image {
+        display: none;
+
+        @media (min-width: 900px) {
+            display: block;
+            position: relative;
+            height: 480px;
+            overflow: hidden;
+            border-radius: 4px;
+
+            .review-img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                opacity: 0;
+                transition: opacity 0.7s ease;
+
+                &.is-active { opacity: 1; }
+            }
+        }
+    }
+}
+
+.reviews-stars {
+    display: flex;
+    gap: 0.3rem;
+    color: #A78A7F !important;
+    margin-bottom: 1.5rem;
+
+    svg { fill: #A78A7F; }
+}
+
+.reviews-carousel {
+    position: relative;
+    min-height: 80px;
+}
+
+.review-item {
+    display: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    border: none;
+
+    &.is-active { display: block; }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: #FFFFFF;
+        margin: 0 0 0.75rem;
+        font-style: italic;
+
+        &:last-child { margin-bottom: 0; }
+    }
+}
+
+.review-author {
+    font-family: $font__hero;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.reviews-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 1.5rem 0 1rem;
+
+    &__btn {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: background 0.2s, border-color 0.2s;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        svg { display: block; }
+    }
+
+    &__count {
+        color: #FFFFFF;
+        font-size: 0.85rem;
+        opacity: 0.85;
+    }
+}
+
+.reviews-cta {
+    margin-top: 0.5rem;
+
+    a {
+        color: #FFFFFF;
+        font-family: $font__hero;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        padding-bottom: 2px;
+        transition: border-color 0.2s;
+
+        &:hover  { border-color: white; }
+        &:visited { color: #FFFFFF; }
+    }
+}
+
+@keyframes progress-fill {
+    from { width: 0; }
+    to   { width: 100%; }
+}
+
+@keyframes hero-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }

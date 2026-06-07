@@ -1,7 +1,251 @@
+// =====================================================================
+// Site Header — Modern floating nav
+// =====================================================================
+
 .site-header {
-	background-color: #638889;
+    position: fixed;
+    top: 1rem;
+    left: 2rem;
+    right: 2rem;
+    z-index: 9999;
 }
 
 ul.nav-menu > li > a {
-	color: white;
+    color: white;
+}
+
+// =====================================================================
+// Main navigation bar
+// =====================================================================
+.main-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    height: auto;
+    background: #f0e8e1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    position: relative;
+    bottom: auto;
+    filter: none;
+    box-sizing: border-box;
+    transition: border-radius 0.25s ease;
+
+    // Logo — header image
+    .nav-logo-link {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        text-decoration: none;
+        z-index: 2;
+    }
+
+    .nav-logo {
+        height: 3rem;
+        width: auto;
+        display: block;
+    }
+
+    // Legacy custom-logo fallback
+    .custom-logo-link {
+        position: static;
+        transform: none;
+        display: flex;
+        align-items: center;
+        z-index: 2;
+    }
+
+    .custom-logo {
+        width: auto;
+        height: 3rem;
+    }
+
+    // Hamburger button — mobile only
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        position: static;
+        padding: 0.5rem;
+        z-index: 2;
+
+        span {
+            width: 26px;
+            height: 2px;
+            display: block;
+            background-color: #342002;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.2s;
+        }
+
+        @media (min-width: $tablet_size) {
+            display: none;
+        }
+    }
+
+    // ---- Desktop nav (div.menu-header-menu-container > ul > li) ----
+    div.menu-header-menu-container {
+        display: none;
+        flex: 1;
+
+        @media screen and (min-width: $tablet_size) {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        // First menu (left) - align left
+        &:first-of-type {
+            @media screen and (min-width: $tablet_size) {
+                justify-content: flex-start;
+            }
+        }
+
+        // Second menu (right) - align right
+        &:last-of-type {
+            @media screen and (min-width: $tablet_size) {
+                justify-content: flex-end;
+            }
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li { position: relative; }
+
+        a {
+            display: block;
+            color: #342002;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.4rem 0;
+            transition: color 0.2s;
+
+            &:hover  { color: #000; }
+            &:visited { color: #342002; }
+        }
+
+        // Last item styled as CTA pill (Book Now)
+        li:last-child > a {
+            background: linear-gradient(to right, #505718, #807443);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 3px;
+
+            &:hover { opacity: 0.85; }
+        }
+
+        // Sub-menus
+        ul ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 200px;
+            background: rgba(52, 32, 2, 0.97);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 0;
+            gap: 0;
+            flex-direction: column;
+        }
+
+        li:hover > ul { display: flex; }
+    }
+}
+
+// =====================================================================
+// Mobile nav — toggled open
+// =====================================================================
+.main-navigation.toggled {
+    border-radius: 8px 8px 0 0;
+
+    .menu-toggle span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-toggle span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    div.menu-header-menu-container {
+        display: block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #f0e8e1;
+        padding: 0.5rem 0 1rem;
+        border-radius: 0 0 8px 8px;
+        overflow: hidden;
+        animation: mobile-nav-open 0.28s ease forwards;
+
+        ul {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0;
+        }
+
+        li:last-child > a {
+            background: transparent;
+            border-radius: 0;
+            padding: 0.75rem 1.5rem;
+        }
+
+        a {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            width: 100%;
+
+            &:hover { background: rgba(255, 255, 255, 0.06); }
+        }
+
+        li:last-child > a {
+            color: #b6642e;
+
+            &:visited { color: #b6642e; }
+            &:hover { color: #b6642e; }
+        }
+    }
+}
+
+@keyframes mobile-nav-open {
+    from {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+    }
+    to {
+        opacity: 1;
+        clip-path: inset(0 0 0% 0);
+    }
+}
+
+// =====================================================================
+// Body offset — non-home pages need top padding to clear the fixed nav
+// =====================================================================
+body:not(.home) #primary,
+body:not(.home) .site-main {
+    padding-top: 7rem;
+}
+
+body.home #primary {
+    padding-top: 0;
 }

@@ -1,3 +1,7 @@
+html {
+  background-color: #F3EEE8;
+}
+
 body,
 button,
 input,
@@ -8,6 +12,7 @@ textarea {
   font-family: $font__main;
   font-size: 1rem;
   line-height: $font__line-height-body;
+  background-color: #F3EEE8;
 }
 
 $primary-color: #638889;

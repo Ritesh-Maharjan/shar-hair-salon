@@ -1,78 +1,42 @@
 <?php
 /**
- * The template for displaying all pages
+ * Template Name: Contact Page
+ * Template for Contact Us page
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package BDW_Massage
+ * @package SHAR_HAIR_SALON
  */
 
 get_header();
 ?>
 
-<main id="primary" class="site-main">
+<main id="primary" class="site-main contact-page">
 
-	<header class="entry-header">
-		<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
-	</header><!-- .entry-header -->
+	<section class="contact-hero">
+		<h1 class="contact-hero__heading">
+			<?php the_title(); ?>
+		</h1>
 
-	<section class="contact-us">
-		<p>
-			<?php
-			get_template_part("images/phone");
-			?>
-
-			<?php
-			if (function_exists('get_field')) {
-				if (get_field('phone')) {
-					echo get_field('phone');
-				}
-			}
-			?>
-		</p>
-		<p>
-			<?php
-			get_template_part("images/address");
-			?>
-			<?php
-
-			if (function_exists('get_field')) {
-				if (get_field('address')) {
-					echo get_field('address');
-				}
-			} ?>
-
-		</p>
-
-		<p>
-			<?php
-			get_template_part("images/mail");
-			?>
-
-			<?php
-
-			if (function_exists('get_field')) {
-				if (get_field('email')) {
-					echo get_field('email');
-				}
-			} ?>
-		</p>
+		<div class="contact-form-wrap">
+			<?php the_content(); ?>
+		</div>
 	</section>
 
-	<section class="contact-content">
+	<script>
+	// Add placeholders to CF7 inputs since labels are hidden
+	(function() {
+		const placeholders = {
+			'your-name':    'Name',
+			'your-email':   'Email',
+			'your-subject': 'Subject',
+			'your-message': 'Message',
+		};
+		Object.keys(placeholders).forEach(function(name) {
+			const el = document.querySelector('[name="' + name + '"]');
+			if (el) el.setAttribute('placeholder', placeholders[name]);
+		});
+	})();
+	</script>
 
-		<?php
+</main>
 
-		the_content();
-
-		?>
-	</section>
-</main><!-- #main -->
-
-<?php
-get_footer();
+<?php get_footer(); ?>

@@ -37,7 +37,7 @@ $categories = get_terms( [
             <button class="services-filter__btn is-active" data-filter="all">All</button>
             <?php foreach ( $categories as $category ) : ?>
             <button class="services-filter__btn" data-filter="<?php echo esc_attr( $category->slug ); ?>">
-                <?php echo esc_html( $category->name ); ?>
+                <?php echo esc_html( ucwords( strtolower( $category->name ) ) ); ?>
             </button>
             <?php endforeach; ?>
         </div>

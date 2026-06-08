@@ -23,15 +23,9 @@
 // ── Category filter pills ────────────────────────────────────────────────
 .services-filter {
   display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 2.5rem;
-  padding-bottom: 0.25rem; // space for scrollbar on desktop
-
-  // Hide scrollbar visually but keep it functional
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
 }
 
 .services-filter__btn {
@@ -44,7 +38,8 @@
   font-size: 0.85rem;
   font-family: inherit;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.01em;
+  text-transform: none;
   cursor: pointer;
   transition: background 0.18s, border-color 0.18s, color 0.18s;
 
@@ -163,11 +158,12 @@
   font-weight: 700;
   margin: 0 0 0.25rem;
   line-height: 1.3;
+  color: #1a1a1a !important;
 }
 
 .service-row__meta {
   font-size: 0.88rem;
-  color: #555;
+  color: #555 !important;
   margin: 0;
 }
 
@@ -217,7 +213,7 @@
 
 .service-row__desc {
   font-size: 0.9rem;
-  color: #444;
+  color: #444 !important;
   line-height: 1.6;
   margin: 0 0 0.5rem;
 }

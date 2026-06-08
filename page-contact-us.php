@@ -73,16 +73,22 @@ get_header();
 		$reviews = [];
 		while ( $testimonial_query->have_posts() ) :
 			$testimonial_query->the_post();
+			$acf_img  = function_exists( 'get_field' ) ? get_field( 'testimonial_image' ) : '';
+			$img_url  = '';
+			if ( $acf_img ) {
+				$img_url = is_array( $acf_img ) ? $acf_img['url'] : $acf_img;
+			} elseif ( has_post_thumbnail() ) {
+				$img_url = get_the_post_thumbnail_url( null, 'large' );
+			}
 			$reviews[] = [
 				'title'   => get_the_title(),
 				'content' => get_the_content(),
-				'thumb'   => has_post_thumbnail() ? get_the_post_thumbnail_url( null, 'large' ) : '',
+				'img'     => $img_url,
 			];
 		endwhile;
 		wp_reset_postdata();
 
 		$total    = count( $reviews );
-		$side_img = ! empty( $reviews[0]['thumb'] ) ? $reviews[0]['thumb'] : '';
 	?>
 	<section class="home-reviews">
 		<div class="home-reviews__inner">
@@ -113,9 +119,23 @@ get_header();
 				</nav>
 			</div>
 
-			<?php if ( ! empty( $side_img ) ) : ?>
+			<?php
+			$has_imgs = false;
+			foreach ( $reviews as $r ) { if ( ! empty( $r['img'] ) ) { $has_imgs = true; break; } }
+			?>
+			<?php if ( $has_imgs ) : ?>
 			<div class="home-reviews__image">
-				<img src="<?php echo esc_url( $side_img ); ?>" alt="Review" loading="lazy">
+				<?php foreach ( $reviews as $i => $review ) : ?>
+				<?php if ( ! empty( $review['img'] ) ) : ?>
+				<img
+					src="<?php echo esc_url( $review['img'] ); ?>"
+					alt="<?php echo esc_attr( $review['title'] ); ?>"
+					class="review-img<?php echo $i === 0 ? ' is-active' : ''; ?>"
+					data-index="<?php echo $i; ?>"
+					loading="lazy"
+				>
+				<?php endif; ?>
+				<?php endforeach; ?>
 			</div>
 			<?php endif; ?>
 		</div>
@@ -133,10 +153,14 @@ get_header();
 	const count = parseInt(carousel.dataset.total, 10);
 	let current = 0;
 
+	const imgs = document.querySelectorAll('.review-img');
+
 	function show(idx) {
 		items[current].classList.remove('is-active');
+		if (imgs[current]) imgs[current].classList.remove('is-active');
 		current = (idx + count) % count;
 		items[current].classList.add('is-active');
+		if (imgs[current]) imgs[current].classList.add('is-active');
 		document.querySelector('.js-review-count').textContent = (current + 1) + ' / ' + count;
 	}
 

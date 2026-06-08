@@ -112,6 +112,15 @@ footer {
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      color: white !important;
+      text-decoration: none;
+      opacity: 1;
+
+      &:hover {
+        font-weight: 700;
+        text-decoration: underline;
+        opacity: 1;
+      }
     }
   }
 

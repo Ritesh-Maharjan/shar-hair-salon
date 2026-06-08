@@ -1004,6 +1004,14 @@ footer .footer-social a {
 	font-weight: 500;
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
+	color: white !important;
+	text-decoration: none;
+	opacity: 1;
+}
+footer .footer-social a:hover {
+	font-weight: 700;
+	text-decoration: underline;
+	opacity: 1;
 }
 footer .footer-bottom {
 	max-width: 1400px;
@@ -1056,6 +1064,57 @@ footer .footer-bottom p {
 	text-align: left;
 }
 
+.services-header {
+	margin-bottom: 2.5rem;
+}
+
+.services-page__title {
+	font-family: "Archivo", "Montserrat", Roboto, sans-serif;
+	font-weight: 700;
+	font-size: clamp(2rem, 5vw, 3.5rem);
+	color: #342002;
+	line-height: 1.15;
+	text-align: left !important;
+	margin: 0 0 1.25rem;
+}
+
+.services-filter {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	gap: 0.5rem;
+	margin-bottom: 2.5rem;
+	padding-bottom: 0.25rem;
+	scrollbar-width: none;
+}
+.services-filter::-webkit-scrollbar {
+	display: none;
+}
+
+.services-filter__btn {
+	flex-shrink: 0;
+	padding: 0.45rem 1.25rem;
+	border-radius: 999px;
+	border: 1.5px solid rgba(0, 0, 0, 0.2);
+	background: transparent;
+	color: #1a1a1a;
+	font-size: 0.85rem;
+	font-family: inherit;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+	cursor: pointer;
+	transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+.services-filter__btn:hover {
+	border-color: #414d36;
+	color: #414d36;
+}
+.services-filter__btn.is-active {
+	background: #414d36;
+	border-color: #414d36;
+	color: #fff;
+}
+
 .services-category {
 	margin-bottom: 3rem;
 }
@@ -1092,8 +1151,9 @@ footer .footer-bottom p {
 }
 
 .service-row__image {
-	width: 140px;
+	width: 250px;
 	flex-shrink: 0;
+	aspect-ratio: 1/1;
 }
 .service-row__image img {
 	width: 100%;
@@ -1108,7 +1168,8 @@ footer .footer-bottom p {
 }
 @media screen and (max-width: 600px) {
 	.service-row__image {
-		width: 90px;
+		width: 110px;
+		aspect-ratio: 1/1;
 	}
 }
 
@@ -2108,20 +2169,18 @@ div.posts-container .post-wrapper img {
 }
 
 .contact-hero {
-	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	padding: 5rem 1.5rem;
+	padding: 7vh 1.5rem;
 }
 
 .contact-hero__heading {
-	font-size: clamp(1.5rem, 4vw, 2.5rem);
-	font-weight: 800;
-	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	color: #1a1a1a;
+	font-family: "Archivo", "Montserrat", Roboto, sans-serif;
+	font-weight: 700;
+	font-size: clamp(2rem, 5vw, 3.5rem);
+	color: #342002;
+	line-height: 1.15;
 	text-align: center;
 	margin: 0 0 3rem;
 }

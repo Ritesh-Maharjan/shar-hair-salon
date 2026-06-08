@@ -5,6 +5,61 @@
   text-align: left;
 }
 
+// ── Page header ──────────────────────────────────────────────────────────
+.services-header {
+  margin-bottom: 2.5rem;
+}
+
+.services-page__title {
+  font-family: $font__hero;
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #342002;
+  line-height: 1.15;
+  text-align: left !important;
+  margin: 0 0 1.25rem;
+}
+
+// ── Category filter pills ────────────────────────────────────────────────
+.services-filter {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 0.25rem; // space for scrollbar on desktop
+
+  // Hide scrollbar visually but keep it functional
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.services-filter__btn {
+  flex-shrink: 0;
+  padding: 0.45rem 1.25rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+
+  &:hover {
+    border-color: #414d36;
+    color: #414d36;
+  }
+
+  &.is-active {
+    background: #414d36;
+    border-color: #414d36;
+    color: #fff;
+  }
+}
+
 // ── Category heading ────────────────────────────────────────────────────
 .services-category {
   margin-bottom: 3rem;
@@ -46,8 +101,9 @@
 
 // Left: image
 .service-row__image {
-  width: 140px;
+  width: 250px;
   flex-shrink: 0;
+  aspect-ratio: 1 / 1;
 
   img {
     width: 100%;
@@ -63,7 +119,8 @@
   }
 
   @media screen and (max-width: 600px) {
-    width: 90px;
+    width: 110px;
+    aspect-ratio: 1 / 1;
   }
 }
 

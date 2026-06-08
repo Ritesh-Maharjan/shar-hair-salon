@@ -28,8 +28,22 @@ $categories = get_terms( [
 
 <main id="primary" class="site-main services-page">
 
-    <?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) :
-        foreach ( $categories as $category ) :
+    <?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
+
+    <!-- ── Page heading + filter ── -->
+    <div class="services-header">
+        <h1 class="services-page__title">Our Services</h1>
+        <div class="services-filter">
+            <button class="services-filter__btn is-active" data-filter="all">All</button>
+            <?php foreach ( $categories as $category ) : ?>
+            <button class="services-filter__btn" data-filter="<?php echo esc_attr( $category->slug ); ?>">
+                <?php echo esc_html( $category->name ); ?>
+            </button>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <?php foreach ( $categories as $category ) :
 
             $services = get_posts( [
                 'post_type'      => 'shar-service',
@@ -47,7 +61,7 @@ $categories = get_terms( [
             if ( empty( $services ) ) continue;
     ?>
 
-    <section class="services-category">
+    <section class="services-category" data-category="<?php echo esc_attr( $category->slug ); ?>">
         <h2 class="services-category__title"><?php echo esc_html( $category->name ); ?></h2>
 
         <div class="services-list">
@@ -123,13 +137,47 @@ $categories = get_terms( [
 
     <?php
         endforeach;
-    else : ?>
-        <p>No services found. <a href="<?php echo esc_url( admin_url( 'options-general.php?page=shar-booking' ) ); ?>">Sync services from Square</a>.</p>
-    <?php endif; ?>
+    endif; ?>
 
 </main>
 
 <script>
+// ── Category filter (multi-select) ──────────────────────────────────────
+(function () {
+    const allBtn   = document.querySelector('.services-filter__btn[data-filter="all"]');
+    const catBtns  = document.querySelectorAll('.services-filter__btn:not([data-filter="all"])');
+    const sections = document.querySelectorAll('.services-category');
+
+    function applyFilter() {
+        const active = Array.from(catBtns)
+            .filter(function (b) { return b.classList.contains('is-active'); })
+            .map(function (b) { return b.dataset.filter; });
+
+        sections.forEach(function (sec) {
+            sec.style.display = (active.length === 0 || active.includes(sec.dataset.category)) ? '' : 'none';
+        });
+    }
+
+    // "All" pill — reset everything
+    allBtn.addEventListener('click', function () {
+        catBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        allBtn.classList.add('is-active');
+        sections.forEach(function (sec) { sec.style.display = ''; });
+    });
+
+    // Category pills — toggle on/off
+    catBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            btn.classList.toggle('is-active');
+            // If nothing selected, re-activate "All"
+            const anyActive = Array.from(catBtns).some(function (b) { return b.classList.contains('is-active'); });
+            allBtn.classList.toggle('is-active', !anyActive);
+            applyFilter();
+        });
+    });
+}());
+
+// ── Show all / Show less toggle ──────────────────────────────────────────
 document.querySelectorAll('.service-row__toggle').forEach(function(btn) {
     const desc = btn.previousElementSibling;
     // Start clamped

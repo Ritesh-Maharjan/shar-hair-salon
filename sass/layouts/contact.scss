@@ -6,21 +6,19 @@
 }
 
 .contact-hero {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 5rem 1.5rem;
+  padding: 7vh 1.5rem;
 }
 
 // ── Heading ──────────────────────────────────────────────────────────────
 .contact-hero__heading {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #1a1a1a;
+  font-family: $font__hero;
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #342002;
+  line-height: 1.15;
   text-align: center;
   margin: 0 0 3rem;
 }

@@ -1,54 +1,254 @@
-h1.page-title {
-	text-align: center;
+.services-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  text-align: left;
 }
 
-div.services-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
+// ── Page header ──────────────────────────────────────────────────────────
+.services-header {
+  margin-bottom: 2.5rem;
 }
 
-div.service-thumbnail > img {
-	height: 200px;
-	object-fit: cover;
-	object-position: center;
-	color: aliceblue;
+.services-page__title {
+  font-family: $font__hero;
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: #342002;
+  line-height: 1.15;
+  text-align: left !important;
+  margin: 0 0 1.25rem;
 }
 
-article.service-item {
-	padding: 1rem;
-	margin: 2rem;
-	border: 1px solid #638889;
-	border-radius: 50px;
-	display: flex; /* Add display flex */
-	flex-direction: column; /* Set flex direction to column */
-	align-items: center; /* Center items horizontally */
-	-webkit-box-shadow: 7px 2px 13px 1px rgba(0, 0, 0, 0.24);
-	box-shadow: 7px 2px 13px 1px rgba(0, 0, 0, 0.24);
+// ── Category filter pills ────────────────────────────────────────────────
+.services-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
 }
 
-article > div.price-list,
-.price-list {
-	display: flex;
-	flex-direction: column;
+.services-filter__btn {
+  flex-shrink: 0;
+  padding: 0.45rem 1.25rem;
+  border-radius: 999px;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
 
-	a {
-		text-decoration: none;
-		font-weight: bold;
-		color: black;
-		background-color: #fff1d7;
-		margin-bottom: 1rem;
+  &:hover {
+    border-color: #414d36;
+    color: #414d36;
+  }
 
-		:hover {
-			color: green;
-		}
-	}
+  &.is-active {
+    background: #414d36;
+    border-color: #414d36;
+    color: #fff;
+  }
 }
 
-article.service-item > a {
-	margin-top: 1rem; 
+// ── Category heading ────────────────────────────────────────────────────
+.services-category {
+  margin-bottom: 3rem;
 }
 
-.service-book-for p{
-	font-weight: 700;
+.services-category__title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #999;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left !important;
+}
+
+.service-row__name {
+  text-align: left !important;
+}
+
+// ── Service list ────────────────────────────────────────────────────────
+.services-list {
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Individual row ──────────────────────────────────────────────────────
+.service-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 1px solid #e0e0e0;
+
+  &:first-child {
+    border-top: 1px solid #e0e0e0;
+  }
+}
+
+// Left: image
+.service-row__image {
+  width: 250px;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    // Mobile: always full colour
+    filter: grayscale(0%);
+  }
+
+  &--empty {
+    background: #f0f0f0;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 110px;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+// Desktop only: grayscale + colour on hover
+@media screen and (min-width: 601px) {
+  .service-row__image img {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+  }
+
+  .service-row:hover .service-row__image img {
+    filter: grayscale(0%);
+  }
+}
+
+// Right: all content
+// Right: all content
+.service-row__content {
+  flex: 1;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+// Top line: name + meta — BOOK button sits top-right via absolute on desktop
+.service-row__main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.service-row__info {
+  flex: 1;
+}
+
+.service-row__name {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  line-height: 1.3;
+  color: #1a1a1a !important;
+}
+
+.service-row__meta {
+  font-size: 0.88rem;
+  color: #555 !important;
+  margin: 0;
+}
+
+// BOOK button
+.service-row__book {
+  flex-shrink: 0;
+  padding: 0.5rem 1.25rem;
+  border: 2px solid #1a1a1a;
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: #1a1a1a;
+    color: #fff;
+  }
+
+  &.is-added {
+    background: #555;
+    border-color: #555;
+    color: #fff;
+  }
+
+  // Desktop: absolute top-right of the content area
+  @media screen and (min-width: 601px) {
+    position: absolute;
+    top: 1.75rem;
+    right: 1.5rem;
+  }
+
+  // Mobile: sits below description, full row
+  @media screen and (max-width: 600px) {
+    align-self: flex-start;
+    margin-top: 1rem;
+  }
+}
+
+// ── Description + toggle ────────────────────────────────────────────────
+.service-row__desc-wrap {
+  margin-top: 1rem;
+}
+
+.service-row__desc {
+  font-size: 0.9rem;
+  color: #444 !important;
+  line-height: 1.6;
+  margin: 0 0 0.5rem;
+}
+
+// Only clamp when a toggle button follows
+.service-row__desc:has(+ .service-row__toggle),
+.service-row__toggle ~ * {
+  // fallback handled in JS
+}
+
+.service-row__desc.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.service-row__desc.is-expanded {
+  display: block;
+  overflow: visible;
+}
+
+.service-row__toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1a1a1a;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.6;
+  }
 }

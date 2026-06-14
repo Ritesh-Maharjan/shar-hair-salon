@@ -123,8 +123,76 @@ function create_service_post_type()
 
     register_post_type('shar-testimonial', $args);
 
+    // CPT for Portfolio
+    register_post_type( 'shar-portfolio', [
+        'labels' => [
+            'name'          => 'Portfolio',
+            'singular_name' => 'Portfolio Item',
+            'add_new_item'  => 'Add New Portfolio Item',
+            'edit_item'     => 'Edit Portfolio Item',
+            'menu_name'     => 'Portfolio',
+        ],
+        'public'        => false,
+        'show_ui'       => true,
+        'show_in_menu'  => true,
+        'menu_icon'     => 'dashicons-format-video',
+        'supports'      => [ 'thumbnail' ],
+        'menu_position' => 6,
+    ] );
 }
 add_action('init', 'create_service_post_type');
+
+// ── Portfolio meta box ───────────────────────────────────────────────────
+add_action( 'add_meta_boxes', function () {
+    add_meta_box( 'shar_portfolio_video', 'Video', 'shar_portfolio_meta_box', 'shar-portfolio', 'normal', 'high' );
+} );
+
+function shar_portfolio_meta_box( $post ) {
+    wp_nonce_field( 'shar_portfolio_save', 'shar_portfolio_nonce' );
+    $video_url = get_post_meta( $post->ID, '_shar_portfolio_video_url', true );
+    ?>
+    <p>
+        <strong>Upload or select a video from your media library.</strong><br>
+        <small style="color:#666;">Convert .mov to .mp4 first (use cloudconvert.com). Set a Featured Image as the thumbnail shown in the grid.</small>
+    </p>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
+        <input type="url" id="shar_portfolio_video_url" name="shar_portfolio_video_url"
+            value="<?php echo esc_attr( $video_url ); ?>" style="flex:1;" placeholder="https://...">
+        <button type="button" id="shar_portfolio_video_btn" class="button">Select Video</button>
+    </div>
+    <script>
+    (function($){
+        $('#shar_portfolio_video_btn').on('click', function(e){
+            e.preventDefault();
+            var frame = wp.media({ title: 'Select Portfolio Video', button: { text: 'Use this video' }, library: { type: 'video' }, multiple: false });
+            frame.on('select', function(){ $('#shar_portfolio_video_url').val(frame.state().get('selection').first().toJSON().url); });
+            frame.open();
+        });
+    }(jQuery));
+    </script>
+    <?php
+}
+
+add_action( 'save_post_shar-portfolio', function ( $post_id ) {
+    if ( ! isset( $_POST['shar_portfolio_nonce'] ) || ! wp_verify_nonce( $_POST['shar_portfolio_nonce'], 'shar_portfolio_save' ) ) return;
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+    if ( isset( $_POST['shar_portfolio_video_url'] ) ) {
+        update_post_meta( $post_id, '_shar_portfolio_video_url', esc_url_raw( $_POST['shar_portfolio_video_url'] ) );
+    }
+    // Auto-title from filename so admin list isn't blank
+    $post = get_post( $post_id );
+    if ( empty( $post->post_title ) || $post->post_title === 'Auto Draft' ) {
+        $url      = $_POST['shar_portfolio_video_url'] ?? '';
+        $filename = $url ? pathinfo( parse_url( $url, PHP_URL_PATH ), PATHINFO_FILENAME ) : 'Portfolio Item';
+        wp_update_post( [ 'ID' => $post_id, 'post_title' => sanitize_text_field( $filename ) ] );
+    }
+} );
+
+add_action( 'admin_enqueue_scripts', function ( $hook ) {
+    if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ] ) ) return;
+    $screen = get_current_screen();
+    if ( $screen && $screen->post_type === 'shar-portfolio' ) wp_enqueue_media();
+} );
 
 
 

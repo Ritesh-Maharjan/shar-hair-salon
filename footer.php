@@ -15,23 +15,18 @@ $facebook = get_theme_mod( 'shar_contact_facebook', '' );
 <footer id="colophon">
 	<div class="site-footer">
 
-		<!-- Col 1: Address -->
+		<!-- Col 1: Logo -->
 		<div class="footer-contact">
-			<?php if ( $address ) : ?>
-			<p>
-				<a href="https://www.google.com/maps/search/<?php echo rawurlencode( $address ); ?>" target="_blank" rel="noopener">
-					<?php echo esc_html( $address ); ?>
-				</a>
-			</p>
-			<?php endif; ?>
-
-			<?php if ( $phone ) : ?>
-			<p><a href="tel:<?php echo esc_attr( $phone ); ?>"><?php echo esc_html( $phone ); ?></a></p>
-			<?php endif; ?>
-
-			<?php if ( $email ) : ?>
-			<p><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a></p>
-			<?php endif; ?>
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="footer-logo">
+				<?php
+				$logo_id = get_theme_mod( 'custom_logo' );
+				if ( $logo_id ) {
+					echo wp_get_attachment_image( $logo_id, 'medium', false, [ 'class' => 'footer-logo__img' ] );
+				} else {
+					echo '<span class="footer-logo__text">' . esc_html( get_bloginfo( 'name' ) ) . '</span>';
+				}
+				?>
+			</a>
 		</div>
 
 		<!-- Col 2: Nav links -->

@@ -2396,6 +2396,17 @@ div.posts-container .post-wrapper img {
 	pointer-events: none;
 }
 
+.portfolio-item__thumb--fallback {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	   object-fit: cover;
+	z-index: 1;
+	display: block;
+}
+
 .portfolio-item__play {
 	position: absolute;
 	inset: 0;
@@ -2405,24 +2416,6 @@ div.posts-container .post-wrapper img {
 	opacity: 0;
 	transition: opacity 0.3s ease;
 	pointer-events: none;
-}
-
-.portfolio-item__caption {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	padding: 0.6rem 0.85rem;
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
-	color: #fff;
-	font-size: 0.8rem;
-	font-weight: 600;
-	letter-spacing: 0.03em;
-	opacity: 0;
-	transition: opacity 0.3s ease;
-}
-.portfolio-item:hover .portfolio-item__caption {
-	opacity: 1;
 }
 
 .portfolio-empty {

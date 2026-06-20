@@ -2373,29 +2373,6 @@ div.posts-container .post-wrapper img {
 	opacity: 1;
 }
 
-@keyframes shar-shimmer {
-	0% {
-		background-position: -200% 0;
-	}
-	100% {
-		background-position: 200% 0;
-	}
-}
-.portfolio-item__skeleton {
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
-	background-size: 200% 100%;
-	animation: shar-shimmer 1.6s infinite linear;
-	z-index: 2;
-	border-radius: 8px;
-	transition: opacity 0.4s ease;
-}
-.portfolio-item__skeleton.is-loaded {
-	opacity: 0;
-	pointer-events: none;
-}
-
 .portfolio-item__thumb--fallback {
 	position: absolute;
 	inset: 0;

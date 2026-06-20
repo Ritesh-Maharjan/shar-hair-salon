@@ -142,15 +142,7 @@ function shar_get_embed_url( $url ) {
 					if (!vid.src && vid.dataset.src) {
 						vid.src = vid.dataset.src;
 
-						var skeleton  = vid.parentElement.querySelector('.portfolio-item__skeleton');
-						var fallback  = vid.parentElement.querySelector('.portfolio-item__thumb--fallback');
-
-						// Hide skeleton when metadata ready
-						if (skeleton) {
-							vid.addEventListener('loadedmetadata', function () {
-								skeleton.classList.add('is-loaded');
-							}, { once: true });
-						}
+						var fallback = vid.parentElement.querySelector('.portfolio-item__thumb--fallback');
 
 						// Hide thumbnail only when video is actually playing
 						vid.addEventListener('playing', function () {
@@ -160,7 +152,6 @@ function shar_get_embed_url( $url ) {
 						// Keep thumbnail visible on error
 						vid.addEventListener('error', function () {
 							vid.style.display = 'none';
-							if (skeleton) skeleton.classList.add('is-loaded');
 						}, { once: true });
 					}
 					vid.play().catch(function () {});

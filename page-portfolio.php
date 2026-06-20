@@ -67,6 +67,7 @@ function shar_get_embed_url( $url ) {
 				loading="lazy"
 			>
 			<?php elseif ( $is_direct ) : ?>
+			<div class="portfolio-item__skeleton" aria-hidden="true"></div>
 			<video
 				class="portfolio-item__thumb"
 				src="<?php echo esc_url( $video_url ); ?>"
@@ -137,6 +138,15 @@ function shar_get_embed_url( $url ) {
 	closeBtn.addEventListener('click', closeLightbox);
 	lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
 	document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+
+	// Hide skeleton once video first frame is ready
+	document.querySelectorAll('video.portfolio-item__thumb').forEach(function (vid) {
+		var skeleton = vid.parentElement.querySelector('.portfolio-item__skeleton');
+		if (!skeleton) return;
+		function reveal() { skeleton.classList.add('is-loaded'); }
+		if (vid.readyState >= 1) { reveal(); return; }
+		vid.addEventListener('loadedmetadata', reveal, { once: true });
+	});
 
 	document.querySelectorAll('.portfolio-item').forEach(function (item) {
 		item.addEventListener('click', function () {

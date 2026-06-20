@@ -262,23 +262,42 @@ function shar_preload_hero_image() {
 	echo '<link rel="preload" as="image" href="' . esc_url( $url ) . '" fetchpriority="high">' . "\n";
 }
 
-// ── Dequeue WooCommerce & Square scripts/styles on non-WC pages ──────────────
-add_action( 'wp_enqueue_scripts', 'shar_dequeue_wc_on_non_wc_pages', 99 );
-function shar_dequeue_wc_on_non_wc_pages() {
-	// Only keep WC assets where they're actually needed.
-	if ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) {
-		return;
+// ── Remove WooCommerce & Square assets on non-WC pages ───────────────────────
+// Uses wp_print_styles/scripts (fires right before output, after all enqueues).
+add_action( 'wp_print_styles',  'shar_remove_wc_styles',  0 );
+add_action( 'wp_print_scripts', 'shar_remove_wc_scripts', 0 );
+
+function shar_remove_wc_styles() {
+	if ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) return;
+	global $wp_styles;
+	if ( empty( $wp_styles->queue ) ) return;
+	$patterns = [ 'wc-blocks', 'wc-square', 'woocommerce' ];
+	foreach ( $wp_styles->queue as $handle ) {
+		$src = $wp_styles->registered[ $handle ]->src ?? '';
+		foreach ( $patterns as $p ) {
+			if ( str_contains( $src, $p ) ) {
+				wp_dequeue_style( $handle );
+				break;
+			}
+		}
 	}
-	// WooCommerce block CSS
-	wp_dequeue_style( 'wc-blocks-style' );
-	wp_dequeue_style( 'wc-blocks-vendors-style' );
-	wp_dequeue_style( 'woocommerce-inline' );
-	// WooCommerce block JS
+}
+
+function shar_remove_wc_scripts() {
+	if ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) return;
+	global $wp_scripts;
+	if ( empty( $wp_scripts->queue ) ) return;
+	$patterns = [ 'wc-blocks', 'wc-square', 'sourcebuster', 'order-attribution' ];
+	foreach ( $wp_scripts->queue as $handle ) {
+		$src = $wp_scripts->registered[ $handle ]->src ?? '';
+		foreach ( $patterns as $p ) {
+			if ( str_contains( $src, $p ) ) {
+				wp_dequeue_script( $handle );
+				break;
+			}
+		}
+	}
 	wp_dequeue_script( 'wc-cart-fragments' );
-	wp_dequeue_script( 'woocommerce' );
-	// Square checkout blocks CSS (biggest offender — 29 KiB)
-	wp_dequeue_style( 'wc-square-cart-checkout-blocks-style' );
-	wp_dequeue_script( 'wc-square-cart-checkout-blocks' );
 }
 
 // ── Long browser cache for static assets via wp_headers ──────────────────────

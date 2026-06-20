@@ -179,13 +179,14 @@ add_action('widgets_init', 'shar_salon_widgets_init');
  */
 function shar_salon_scripts()
 {
+	// Single combined request for both fonts — display=swap prevents render blocking
 	wp_enqueue_style(
-		'google-fonts-archivo',
-		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap',
+		'shar-google-fonts',
+		'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap',
 		array(),
 		null
 	);
-	wp_enqueue_style('shar-hair-salon-style', get_stylesheet_uri(), array( 'google-fonts-archivo' ), _S_VERSION);
+	wp_enqueue_style('shar-hair-salon-style', get_stylesheet_uri(), array( 'shar-google-fonts' ), _S_VERSION);
 	wp_style_add_data('shar-hair-salon-style', 'rtl', 'replace');
 
 	wp_enqueue_script('shar-hair-salon-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true);
@@ -249,6 +250,45 @@ function shar_salon_scripts()
 
 }
 add_action('wp_enqueue_scripts', 'shar_salon_scripts');
+
+// ── Preload LCP hero image on homepage ───────────────────────────────────────
+add_action( 'wp_head', 'shar_preload_hero_image', 1 );
+function shar_preload_hero_image() {
+	if ( ! is_front_page() || ! function_exists( 'get_field' ) ) return;
+	$img = get_field( 'hero_image_one', get_queried_object_id() );
+	if ( ! $img ) return;
+	$url = is_array( $img ) ? ( $img['url'] ?? '' ) : $img;
+	if ( ! $url ) return;
+	echo '<link rel="preload" as="image" href="' . esc_url( $url ) . '" fetchpriority="high">' . "\n";
+}
+
+// ── Dequeue WooCommerce & Square scripts/styles on non-WC pages ──────────────
+add_action( 'wp_enqueue_scripts', 'shar_dequeue_wc_on_non_wc_pages', 99 );
+function shar_dequeue_wc_on_non_wc_pages() {
+	// Only keep WC assets where they're actually needed.
+	if ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) {
+		return;
+	}
+	// WooCommerce block CSS
+	wp_dequeue_style( 'wc-blocks-style' );
+	wp_dequeue_style( 'wc-blocks-vendors-style' );
+	wp_dequeue_style( 'woocommerce-inline' );
+	// WooCommerce block JS
+	wp_dequeue_script( 'wc-cart-fragments' );
+	wp_dequeue_script( 'woocommerce' );
+	// Square checkout blocks CSS (biggest offender — 29 KiB)
+	wp_dequeue_style( 'wc-square-cart-checkout-blocks-style' );
+	wp_dequeue_script( 'wc-square-cart-checkout-blocks' );
+}
+
+// ── Long browser cache for static assets via wp_headers ──────────────────────
+add_filter( 'wp_headers', 'shar_long_cache_headers' );
+function shar_long_cache_headers( $headers ) {
+	if ( ! is_admin() ) {
+		$headers['Cache-Control'] = 'public, max-age=31536000, immutable';
+	}
+	return $headers;
+}
 
 /**
  * Implement the Custom Header feature.
